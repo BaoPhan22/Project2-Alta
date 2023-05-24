@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif !important;
+    font-size: 18px;
+}
+
+form {
+    padding: 0;
+}
+
+body {
+    max-width: 1440px;
+    margin: 0px auto;
+    min-height: 810px;
+    translate: 10px;
+}
+
+#logo-container {
+    margin-top: 82px;
+    margin-bottom: 75px;
+}
+
+.inputs {
+    width: 400px;
+    height: 44px;
+}
+
+.col-right {
+    width: 848px;
+    background-color: #fff;
+}
+
+.col-left {
+    width: 592px;
+    background-color: #f6f6f6;
+}
+
+.image-svg {
+    margin-left: 79px;
+    margin-top: 112px;
+    margin-bottom: 83px;
+    width: 605px;
+    height: 614.06px;
+}
+
+#button-pri {
+    background-color: #ff9138;
+    color: #fff;
+    width: 162px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+}
+
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+#system {
+    top: 407px;
+    right: 252px;
+    width: 144px;
+    height: 54px;
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: #ff7506;
+    line-height: 51px;
+}
+
+#manage-queue {
+    top: 454px;
+    right: 33px;
+    width: 361px;
+    height: 54px;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #ff7506;
+    line-height: 54px;
+}
+
+.text-danger {
+    color: #e73f3f !important;
+    font-size: 14px;
+}
+
+.visible-password,.visible-password-confirm {
+    right: 22px;
+    top: 46px;
+    width: 16.67px;
+}
+
+.input-fields {
+    width: 400px;
+}
