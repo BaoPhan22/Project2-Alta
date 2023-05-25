@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::get('/dashboard', function () {
@@ -27,5 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// Role Controller
+Route::controller(RoleController::class)->group(function () {
+    Route::get('/system/role', 'ShowRole')->name('system.role');
+    Route::get('/system/role/add', 'AddRole')->name('system.role.add');
+    
+});
+
 
 require __DIR__.'/auth.php';

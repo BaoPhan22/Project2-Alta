@@ -6,6 +6,10 @@
     font-size: 18px;
 }
 
+.text-primary {
+    color: #FF9138 !important;
+}
+
 body {
     max-width: 1440px;
     margin: 0px auto;
@@ -28,6 +32,10 @@ body {
 #main-logo {
     width: 80px;
     height: 64px;
+}
+
+.active-breadcumb {
+    color: #FF7506;
 }
 
 .active {
