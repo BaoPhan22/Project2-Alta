@@ -30,3 +30,38 @@
     border: none;
     color: #ff7506;
 }
+
+.checkbox-container {
+    background-color: #fff2e7 !important;
+}
+
+.form-check {
+    margin: 5px 0;
+}
+
+.button-container button {
+    width: 150px;
+}
+
+.btn-primary {
+    background-color: #FF9138;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #FF9138;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    background-color: #fff2e7;
+    color: #ff7506;
+    border: #ff7506 1px solid;
+}
+
+.btn-outline-primary:hover {
+    background-color: #fff2e7;
+    color: #ff7506;
+    border: #ff7506 1px solid;
+}

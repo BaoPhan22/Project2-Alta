@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+// use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// User Controller
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/system/user', 'ShowUsers')->name('system.user');
+    Route::get('/system/user/add', 'AddUser')->name('system.user.add');
+    Route::get('/system/user/edit/{id}', 'EditUser')->name('system.user.edit');
+    Route::post('/system/user/store', 'StoreUser')->name('system.user.store');
+    Route::post('/system/user/update', 'UpdateUser')->name('system.user.update');
+});
+
 
 // Role Controller
 Route::controller(RoleController::class)->group(function () {
     Route::get('/system/role', 'ShowRole')->name('system.role');
     Route::get('/system/role/add', 'AddRole')->name('system.role.add');
+    Route::get('/system/role/edit/{id}', 'EditRole')->name('system.role.edit');
     
+    Route::post('/system/role/store', 'StoreRole')->name('system.role.store');
+    Route::post('/system/role/update', 'UpdateRole')->name('system.role.update');
 });
 
 

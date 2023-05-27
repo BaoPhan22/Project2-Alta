@@ -11,7 +11,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" class="fw-bold text-decoration-none link-dark">Cài đặt hệ thống</a></li>
                         <li class="breadcrumb-item fw-bold" aria-current="page">Quản lý vai trò</li>
-                        <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page">Thêm vai trò</li>
+                        <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page">Cập nhật vai trò</li>
                     </ol>
                 </nav>
             </div>
@@ -37,19 +37,20 @@
             <div class="col-1"></div>
         </div>
         <div class="row">
-            <form class="mt-3" method="post" action="{{ route('system.role.store') }}">
+            <form class="mt-3" method="post" action="{{ route('system.role.update') }}">
                 @csrf
+                <input type="hidden" name="id" value="{{ $role_id->role_id }}">
                 <div class="card ms-3 ps-0 mb-3">
                     <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Thông tin vai trò</div>
                     <div class="card-body row pb-0">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Tên vai trò: <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="Nhập tên vai trò" class="form-control" id="name" name="name">
+                                <input type="text" placeholder="Nhập tên vai trò" class="form-control" id="name" name="name" value="{{ $role_id->name }}">
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Mô tả:</label>
-                                <textarea name="description" id="description" class="form-control" rows="5" placeholder="Nhập mô tả"></textarea>
+                                <textarea name="description" id="description" class="form-control" rows="5" placeholder="Nhập mô tả">{{ $role_id->description }}</textarea>
                             </div>
                             <div class="mb-3"><span class="text-danger">*</span> Là trường thông tin bắt buộc</div>
                         </div>
@@ -118,7 +119,7 @@
                 </div>
                 <div class="row button-container m-auto text-center">
                     <button class="btn btn-outline-primary ms-auto me-2" type="reset">Hủy</button>
-                    <button class="btn btn-primary me-auto ms-2" type="submit">Thêm</button>
+                    <button class="btn btn-primary me-auto ms-2" type="submit">Cập nhật</button>
                 </div>
             </form>
         </div>
