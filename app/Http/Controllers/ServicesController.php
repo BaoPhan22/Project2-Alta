@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Queuing extends Controller
+class ServicesController extends Controller
 {
     //
 }

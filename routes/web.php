@@ -50,5 +50,13 @@ Route::controller(RoleController::class)->group(function () {
     Route::post('/system/role/update', 'UpdateRole')->name('system.role.update');
 });
 
+// User Controller
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/system/user', 'ShowUsers')->name('system.user');
+    Route::get('/system/user/add', 'AddUser')->name('system.user.add');
+    Route::get('/system/user/edit/{id}', 'EditUser')->name('system.user.edit');
+    Route::post('/system/user/store', 'StoreUser')->name('system.user.store');
+    Route::post('/system/user/update', 'UpdateUser')->name('system.user.update');
+});
 
 require __DIR__.'/auth.php';
