@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('equipment_categories', function (Blueprint $table) {
             $table->id('equipments_categories_id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 

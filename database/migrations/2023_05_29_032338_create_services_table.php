@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id('services_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
-            $table->string('status');
+            $table->string('status')->default('Hoạt động');
             $table->json('rule_order')->nullable();
-            $table->timestamps();
         });
     }
 

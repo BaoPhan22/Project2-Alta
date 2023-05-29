@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('equipments_categories_id');
             $table->foreign('equipments_categories_id')->references('equipments_categories_id')->on('equipment_categories')->onDelete('cascade');
-            $table->string('ip_address');
-            $table->string('is_active');
-            $table->string('is_connect');
-            $table->string('username');
-            $table->string('password');
+            $table->string('ip_address')->nullable();
+            $table->string('is_active')->nullable();
+            $table->string('is_connect')->nullable();
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
