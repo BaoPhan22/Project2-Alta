@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EquipmentsController;
+use App\Http\Controllers\QueuingController;
+use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 // use App\Http\Controllers\Auth\RegisteredUserController;
@@ -50,13 +53,24 @@ Route::controller(RoleController::class)->group(function () {
     Route::post('/system/role/update', 'UpdateRole')->name('system.role.update');
 });
 
-// User Controller
-Route::controller(ProfileController::class)->group(function () {
-    Route::get('/system/user', 'ShowUsers')->name('system.user');
-    Route::get('/system/user/add', 'AddUser')->name('system.user.add');
-    Route::get('/system/user/edit/{id}', 'EditUser')->name('system.user.edit');
-    Route::post('/system/user/store', 'StoreUser')->name('system.user.store');
-    Route::post('/system/user/update', 'UpdateUser')->name('system.user.update');
+// Equipments Controller
+Route::controller(EquipmentsController::class)->group(function () {
+    Route::get('/equipments/all', 'ShowEquipments')->name('equipments.all');
+    Route::get('/equipments/add', 'AddEquipments')->name('equipments.add');
+
+});
+
+// Services Controller
+Route::controller(ServicesController::class)->group(function () {
+    Route::get('/services/all', 'ShowServices')->name('services.all');
+    Route::get('/services/add', 'AddServices')->name('services.add');
+
+});
+
+// Queuing Controller
+Route::controller(QueuingController::class)->group(function () {
+    Route::get('/queuings/all', 'ShowQueuings')->name('queuings.all');
+    Route::get('/queuings/add', 'AddQueuings')->name('queuings.add');
 });
 
 require __DIR__.'/auth.php';

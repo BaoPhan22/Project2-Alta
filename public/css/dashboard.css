@@ -6,19 +6,33 @@
     font-size: 18px;
 }
 
+.active:hover{
+    background-color: #FFF2E7 !important;
+}
+
+
+.nav-item:hover{
+    background-color: #FFF2E7;
+}
+.nav-item:hover a {
+    color: #FF7506 !important;
+
+}
+
 .text-primary {
     color: #FF9138 !important;
 }
 
 body {
-    max-width: 1440px;
+    max-width: 1920px;
+    width: 100%;
     margin: 0px auto;
     min-height: 810px;
     background-color: #F7F7F7;
 }
 
 .container {
-    max-width: 1440px;
+    max-width: 100%;
 }
 
 #left-sidebar {

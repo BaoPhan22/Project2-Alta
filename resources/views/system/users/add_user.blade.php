@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="row button-container m-auto text-center">
-                    <button class="btn btn-outline-primary ms-auto me-2" type="reset">Hủy</button>
+                    <a href="{{ route('system.user') }}" class="btn btn-outline-primary ms-auto me-2">Hủy</a>
                     <button class="btn btn-primary me-auto ms-2" type="submit">Thêm</button>
                 </div>
             </form>
