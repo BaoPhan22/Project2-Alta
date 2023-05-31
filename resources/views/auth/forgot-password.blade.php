@@ -35,13 +35,13 @@
                     <!-- Password -->
                     <div class="mb-3 m-auto p-relative">
                         <label for="password" class="form-label ">Vui lòng nhập email để đặt lại mật khẩu của bạn *</label>
-                        <input type="email" class="form-control inputs" id="email" name="email">
+                        <input type="email" class="form-control inputs" id="email" name="email" required>
                     </div>
                 </div>
 
                 <div class="buttons-container text-center mt-5">
                     <div class="button-inline me-3">
-                        <button type="reset" class="btn btn-outline">Hủy</button>
+                        <a href="{{ route('login') }}" class="btn btn-outline">Hủy</a>
                     </div>
                     <div class="button-inline">
                         <button type="submit" class="btn btn-fill">Tiếp tục</button>

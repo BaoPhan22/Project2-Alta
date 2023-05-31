@@ -44,14 +44,14 @@
                     <div class="mb-3 m-auto p-relative">
 
                         <label for="password" class="form-label ">Mật khẩu *</label>
-                        <input type="password" class="form-control inputs border border-danger border-2" id="password" name="password">
+                        <input type="password" class="form-control inputs" id="password" name="password" required>
                         <span class="p-absolute visible-password bi bi-eye-slash" id="togglePassword"></span>
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="mb-3 m-auto p-relative">
                         <label for="password_confirmation" class="form-label ">Nhập lại mật khẩu *</label>
-                        <input type="password" class="form-control inputs border border-danger border-2" id="password_confirmation" name="password_confirmation">
+                        <input type="password" class="form-control inputs" id="password_confirmation" name="password_confirmation" required>
                         <span class="p-absolute visible-password-confirm bi bi-eye-slash" id="togglePassword"></span>
                     </div>
                 </div>

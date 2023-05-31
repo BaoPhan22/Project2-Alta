@@ -6,12 +6,17 @@
     font-size: 18px;
 }
 
+.container {
+    width: 100% !important;
+    max-width: 100%;
+}
+
 form {
     padding: 0;
 }
 
 body {
-    max-width: 1440px;
+    max-width: 1920px;
     margin: 0px auto;
     min-height: 810px;
     translate: 10px;
