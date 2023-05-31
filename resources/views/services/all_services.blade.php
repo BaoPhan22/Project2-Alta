@@ -70,14 +70,14 @@
                     </thead>
                     <tbody>
                         @if(count($services) > 0)
-                        @foreach($equservicesipments as $item)
+                        @foreach($services as $item)
                         <tr>
                             <td>{{ $item->services_id_custom }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->description }}</td>
-                            <td>{{ $item->is_active }}</td>
-                            <td>Chi tiết</td>
-                            <td>Cập nhật</td>
+                            <td>{{ $item->status }}</td>
+                            <td><a href="{{ route('services.detail',$item->services_id) }}">Chi tiết</a></td>
+                            <td><a href="{{ route('services.edit',$item->services_id) }}">Cập nhật</a></td>
                         </tr>
                         @endforeach
                         @else
@@ -93,7 +93,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    document.title = 'Quản lý dịch vụ'
+</script>
 
 
 @endsection

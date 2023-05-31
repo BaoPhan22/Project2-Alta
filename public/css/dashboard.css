@@ -6,21 +6,50 @@
     font-size: 18px;
 }
 
-.active:hover{
-    background-color: #FFF2E7 !important;
+.active:hover {
+    background-color: #fff2e7 !important;
 }
 
+.background-primary {
+    background-color: #ff7506 !important;
+    border-bottom-left-radius: calc(0.3rem - 1px);
+    border-bottom-right-radius: calc(0.3rem - 1px);
+}
 
-.nav-item:hover{
-    background-color: #FFF2E7;
+.time-stamp {
+    font-size: 22px;
+    color: #fff;
+}
+
+.order {
+    font-size: 56px;
+    font-weight: 800;
+    color: #ff7506;
+    line-height: 60px;
+}
+
+.service-chosen {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+a:hover {
+    color: #ff7506;
+}
+
+.nav-item a {
+    color: #7e7d88;
+}
+
+.nav-item:hover {
+    background-color: #fff2e7;
 }
 .nav-item:hover a {
-    color: #FF7506 !important;
-
+    color: #ff7506 !important;
 }
 
 .text-primary {
-    color: #FF9138 !important;
+    color: #ff9138 !important;
 }
 
 body {
@@ -28,7 +57,7 @@ body {
     width: 100%;
     margin: 0px auto;
     min-height: 810px;
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
 }
 
 .container {
@@ -49,24 +78,23 @@ body {
 }
 
 .active-breadcumb {
-    color: #FF7506;
+    color: #ff7506;
 }
 
 .active {
-    background-color: #FF7506 !important;
+    background-color: #ff7506 !important;
     color: #fff !important;
 }
 
 .logout-button {
-    background-color: #FFF2E7;
+    background-color: #fff2e7;
     width: 176px;
     padding: 12px;
     border-radius: 8px;
-    
 }
 
 .text-custom-button {
-    color: #FF7506;
+    color: #ff7506;
     font-weight: 600;
     text-decoration: none;
 }
@@ -81,7 +109,7 @@ body {
     font-weight: 400;
 }
 
-.progress{
+.progress {
     width: 150px;
     height: 150px;
     line-height: 150px;
@@ -90,7 +118,7 @@ body {
     box-shadow: none;
     position: relative;
 }
-.progress:after{
+.progress:after {
     content: "";
     width: 100%;
     height: 100%;
@@ -100,7 +128,7 @@ body {
     top: 0;
     left: 0;
 }
-.progress > span{
+.progress > span {
     width: 50%;
     height: 100%;
     overflow: hidden;
@@ -108,10 +136,10 @@ body {
     top: 0;
     z-index: 1;
 }
-.progress .progress-left{
+.progress .progress-left {
     left: 0;
 }
-.progress .progress-bar{
+.progress .progress-bar {
     width: 100%;
     height: 100%;
     background: none;
@@ -120,7 +148,7 @@ body {
     position: absolute;
     top: 0;
 }
-.progress .progress-left .progress-bar{
+.progress .progress-left .progress-bar {
     left: 100%;
     border-top-right-radius: 80px;
     border-bottom-right-radius: 80px;
@@ -128,10 +156,10 @@ body {
     -webkit-transform-origin: center left;
     transform-origin: center left;
 }
-.progress .progress-right{
+.progress .progress-right {
     right: 0;
 }
-.progress .progress-right .progress-bar{
+.progress .progress-right .progress-bar {
     left: -100%;
     border-top-left-radius: 80px;
     border-bottom-left-radius: 80px;
@@ -140,7 +168,7 @@ body {
     transform-origin: center right;
     animation: loading-1 1.8s linear forwards;
 }
-.progress .progress-value{
+.progress .progress-value {
     width: 90%;
     height: 90%;
     border-radius: 50%;
@@ -153,68 +181,65 @@ body {
     top: 5%;
     left: 5%;
 }
-.progress.blue .progress-bar{
+.progress.blue .progress-bar {
     border-color: #d10b4f;
 }
-.progress.blue .progress-left .progress-bar{
+.progress.blue .progress-left .progress-bar {
     animation: loading-2 1.5s linear forwards 1.8s;
 }
 
-
-
-
-
-
-@keyframes loading-1{
-    0%{
+@keyframes loading-1 {
+    0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
     }
 }
-@keyframes loading-2{
-    0%{
+@keyframes loading-2 {
+    0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         -webkit-transform: rotate(144deg);
         transform: rotate(144deg);
     }
 }
-@keyframes loading-3{
-    0%{
+@keyframes loading-3 {
+    0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         -webkit-transform: rotate(90deg);
         transform: rotate(90deg);
     }
 }
-@keyframes loading-4{
-    0%{
+@keyframes loading-4 {
+    0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         -webkit-transform: rotate(36deg);
         transform: rotate(36deg);
     }
 }
-@keyframes loading-5{
-    0%{
+@keyframes loading-5 {
+    0% {
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
-    100%{
+    100% {
         -webkit-transform: rotate(126deg);
         transform: rotate(126deg);
     }
 }
-@media only screen and (max-width: 990px){
-    .progress{ margin-bottom: 20px; }
+@media only screen and (max-width: 990px) {
+    .progress {
+        margin-bottom: 20px;
+    }
 }

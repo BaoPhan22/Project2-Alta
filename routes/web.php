@@ -64,6 +64,10 @@ Route::controller(EquipmentsController::class)->group(function () {
 Route::controller(ServicesController::class)->group(function () {
     Route::get('/services/all', 'ShowServices')->name('services.all');
     Route::get('/services/add', 'AddServices')->name('services.add');
+    Route::post('/services/store', 'StoreServices')->name('services.store');
+    Route::get('/services/edit/{id}', 'EditServices')->name('services.edit');
+    Route::get('/services/detail/{id}', 'DetailServices')->name('services.detail');
+    Route::post('/services/update', 'UpdateServices')->name('services.update');
 
 });
 

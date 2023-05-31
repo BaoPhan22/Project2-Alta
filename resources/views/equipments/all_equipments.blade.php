@@ -102,6 +102,7 @@
     </div>
 </div>
 
+<script>document.title = 'Tất cả thiết bị'</script>
 
 
 @endsection

@@ -103,6 +103,6 @@
     </div>
 </div>
 
-
+<script>document.title = 'Danh sách cấp số'</script>
 
 @endsection

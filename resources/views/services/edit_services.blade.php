@@ -26,19 +26,20 @@
             </div>
         </div>
         <div class="row">
-            <form class="mt-3" method="post" action="{{ route('services.store') }}">
+            <form class="mt-3" method="post" action="{{ route('services.update') }}">
                 @csrf
+                <input type="hidden" name="services_id" value="{{ $services_id->services_id }}">
                 <div class="card ms-3 ps-0 mb-3">
                     <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Thông tin dịch vụ</div>
                     <div class="card-body row pb-0">
                         <div class="col">
                             <div class="mb-4">
                                 <label for="services_id_custom" class="form-label">Mã dịch vụ <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="Nhập mã dịch vụ" class="form-control" id="services_id_custom" name="services_id_custom" required>
+                                <input type="text" placeholder="Nhập mã dịch vụ" class="form-control" id="services_id_custom" name="services_id_custom" required value="{{ $services_id->services_id_custom }}">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Tên dịch vụ <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="Nhập tên dịch vụ" class="form-control" id="name" name="name" required>
+                                <input type="text" placeholder="Nhập tên dịch vụ" class="form-control" id="name" name="name" required value="{{ $services_id->name }}">
                             </div>
                         </div>
                         <div class="col">
@@ -86,7 +87,7 @@
                 </div>
                 <div class="row button-container m-auto text-center">
                     <a href="{{ route('services.all') }}" class="btn btn-outline-primary ms-auto me-2">Hủy</a>
-                    <button class="btn btn-primary me-auto ms-2" type="submit">Thêm dịch vụ</button>
+                    <button class="btn btn-primary me-auto ms-2" type="submit">Cập nhật</button>
                 </div>
             </form>
         </div>
@@ -96,7 +97,7 @@
 </div>
 
 <script>
-    document.title = 'Thêm dịch vụ'
+    document.title = 'Cập nhật dịch vụ'
 </script>
 
 @endsection

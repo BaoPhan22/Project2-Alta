@@ -6,6 +6,8 @@
     font-size: 18px;
 }
 
+
+
 .container {
     width: 100% !important;
     max-width: 100%;
@@ -19,7 +21,6 @@ body {
     max-width: 1920px;
     margin: 0px auto;
     min-height: 810px;
-    translate: 10px;
 }
 
 #logo-container {
@@ -94,7 +95,8 @@ body {
     font-size: 14px;
 }
 
-.visible-password,.visible-password-confirm {
+.visible-password,
+.visible-password-confirm {
     right: 22px;
     top: 46px;
     width: 16.67px;
@@ -103,4 +105,3 @@ body {
 .input-fields {
     width: 400px;
 }
-

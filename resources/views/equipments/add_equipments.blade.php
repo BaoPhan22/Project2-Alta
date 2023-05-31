@@ -80,13 +80,9 @@
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="">
-
-        </div>
-    </div>
 </div>
 </div>
 
+<script>document.title = 'Thêm thiết bị'</script>
 
 @endsection
