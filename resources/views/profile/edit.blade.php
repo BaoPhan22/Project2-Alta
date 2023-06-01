@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-@include('dashboard.left_sidebar')
 <div class="col">
     <div class="row">
         <div class="col-8 text-primary fw-bold mt-3 ps-3">Thông tin cá nhân</div>
@@ -45,5 +44,4 @@
         </div>
     </div>
 </div>
-@include('dashboard.profile')
 @endsection

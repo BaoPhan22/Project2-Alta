@@ -13,3 +13,5 @@
         
     </div>
 </div>
+
+<script>document.title='Dashboard'</script>

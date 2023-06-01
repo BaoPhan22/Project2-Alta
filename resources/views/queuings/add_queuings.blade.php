@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
-    @include('dashboard.left_sidebar')
+
     <div class="col-10">
 
         <div class="row">
@@ -84,8 +83,6 @@
         </div>
     </div>
 
-</div>
-</div>
 
 <script>
     document.title = 'Cấp số mới'

@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
-    @include('dashboard.left_sidebar')
     <div class="col-10">
         <div class="row">
             <div class="col mt-3 ps-3">
@@ -101,7 +99,6 @@
             <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('queuings.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Cấp số mới</a></div>
         </div>
     </div>
-</div>
 
 <script>document.title = 'Danh sách cấp số'</script>
 

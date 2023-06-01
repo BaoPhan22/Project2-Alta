@@ -24,6 +24,7 @@
 <body>
     <div class="container">
         <div class="row">
+            @include('..dashboard.left_sidebar')
             @yield('content')
 
             

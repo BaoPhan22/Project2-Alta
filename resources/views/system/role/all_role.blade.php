@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
-    @include('dashboard.left_sidebar')
+
     <div class="col-10">
 
         <div class="row">
@@ -58,10 +57,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('system.role.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i>Thêm vai trò</a></div>
+            <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('system.role.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Thêm vai trò</a></div>
         </div>
     </div>
-</div>
 
-
+<script>document.title='Quản lý vai trò'</script>
 @endsection

@@ -54,3 +54,10 @@
         </form>
     </div>
 </div>
+
+<script>
+    const li = document.querySelectorAll('.nav-link');
+    li.forEach(item => item.addEventListener('click', () => {
+        item.classList.add('active');
+    }))
+</script>

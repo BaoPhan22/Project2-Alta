@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
-    @include('dashboard.left_sidebar')
+
     <div class="col-10">
 
         <div class="row">
@@ -10,8 +9,9 @@
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#" class="fw-bold text-decoration-none link-dark">Cài đặt hệ thống</a></li>
-                        <li class="breadcrumb-item fw-bold" aria-current="page">Quản lý vai trò</li>
-                        <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page">Cập nhật vai trò</li>
+                        <li class="breadcrumb-item fw-bold" aria-current="page"><a href="{{ route('system.user') }}" class="fw-bold text-decoration-none link-dark">Quản lý vai trò</a></li>
+                        <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="#" class="fw-bold text-decoration-none active-breadcumb">Cập nhật vai trò</a></li>
+
                     </ol>
                 </nav>
             </div>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="row button-container m-auto text-center">
-                <a href="{{ route('system.role') }}" class="btn btn-outline-primary ms-auto me-2">Hủy</a>
+                    <a href="{{ route('system.role') }}" class="btn btn-outline-primary ms-auto me-2">Hủy</a>
                     <button class="btn btn-primary me-auto ms-2" type="submit">Cập nhật</button>
                 </div>
             </form>
@@ -129,8 +129,8 @@
 
         </div>
     </div>
-</div>
-</div>
 
+
+<script>document.title='Cập nhật vai trò'</script>
 
 @endsection

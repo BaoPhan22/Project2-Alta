@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="row">
-    @include('dashboard.left_sidebar')
+
     <div class="col-10">
         <div class="row">
             <div class="col mt-3 ps-3">
@@ -92,7 +91,6 @@
             <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('services.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Thêm dịch vụ</a></div>
         </div>
     </div>
-</div>
 <script>
     document.title = 'Quản lý dịch vụ'
 </script>
