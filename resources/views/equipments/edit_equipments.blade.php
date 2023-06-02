@@ -11,7 +11,7 @@
                         <p class="fw-bold text-decoration-none link-dark">Thiết bị</p>
                     </li>
                     <li class="breadcrumb-item fw-bold" aria-current="page"><a href="{{ route('equipments.all') }}" class="fw-bold text-decoration-none link-dark">Danh sách thiết bị</a></li>
-                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="{{ route('equipments.add') }}" class="fw-bold text-decoration-none active-breadcumb">Thêm thiết bị</a></li>
+                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="{{ route('equipments.add') }}" class="fw-bold text-decoration-none active-breadcumb">Cập nhật thiết bị</a></li>
                 </ol>
             </nav>
         </div>
@@ -27,21 +27,22 @@
     <div class="row">
         <form class="mt-3" method="post" action="{{ route('equipments.store') }}">
             @csrf
+            <input type="hidden" name="id" value="{{ $equipments->equipments_id }}">
             <div class="card ms-3 ps-0 mb-3">
                 <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Thông tin thiết bị</div>
                 <div class="card-body row pb-0">
                     <div class="col">
                         <div class="mb-3">
                             <label for="equipments_id_custom" class="form-label">Mã thiết bị <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập mã thiết bị" class="form-control" id="equipments_id_custom" name="equipments_id_custom" required>
+                            <input type="text" placeholder="Nhập mã thiết bị" class="form-control" id="equipments_id_custom" name="equipments_id_custom" required value="{{ $equipments->equipments_id_custom }}">
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên thiết bị <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập tên thiết bị" class="form-control" id="name" name="name" required>
+                            <input type="text" placeholder="Nhập tên thiết bị" class="form-control" id="name" name="name" required value="{{ $equipments->name }}">
                         </div>
                         <div class="mb-3">
                             <label for="ip_address" class="form-label">Địa chỉ IP <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập địa chỉ IP" class="form-control" id="ip_address" name="ip_address" required>
+                            <input type="text" placeholder="Nhập địa chỉ IP" class="form-control" id="ip_address" name="ip_address" required value="{{ $equipments->ip_address }}">
                         </div>
                     </div>
                     <div class="col">
@@ -49,26 +50,39 @@
                             <label for="equipments_categories_id " class="form-label">Loại thiết bị <span class="text-danger">*</span></label>
                             <select class="form-select" name="equipments_categories_id">
                                 @foreach($equipments_cate as $item)
-                                <option value="{{ $item->equipments_categories_id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->equipments_categories_id }}" {{ ($item->equipments_categories_id === $equipments->equipments_categories_id) ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập tên đăng nhập" class="form-control" id="username" name="username" required>
+                            <input type="text" placeholder="Nhập tên đăng nhập" class="form-control" id="username" name="username" required value="{{ $equipments->username }}">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập mật khẩu" class="form-control" id="password" name="password" required>
+                            <input type="text" placeholder="Nhập mật khẩu" class="form-control" id="password" name="password" required value="{{ $equipments->password }}">
                         </div>
                     </div>
                     <div class="row mb-3 px-0 mx-0">
                         <label for="services" class="form-label">Dịch vụ sử dụng <span class="text-danger">*</span></label>
                         <select class="form-select" id="services" name="services[]" multiple="multiple">
-                            @foreach($services as $item)
-                            <option value="{{ $item->services_id }}">{{ $item->name }}</option>
-                            @endforeach
+                            <?php
+                            foreach ($services as $item) {
+                                if (in_array($item->services_id, $a)) {
+                            ?>
+                                    <option value="{{ $item->services_id }}" selected> {{ $item->name }} </option>
+                                <?php
+                                } else {
+                                ?>
+                                    <option value="{{ $item->services_id }}"> {{ $item->name }} </option>
+                            <?php
+                                }
+                            }
+                            ?>
                         </select>
+
                     </div>
                     <div class="row">
                         <div class="mb-5"><span class="text-danger">*</span> Là trường thông tin bắt buộc</div>
@@ -77,7 +91,7 @@
             </div>
             <div class="row button-container m-auto text-center">
                 <a href="{{ route('equipments.all') }}" class="btn btn-outline-primary ms-auto me-2">Hủy</a>
-                <button class="btn btn-primary me-auto ms-2" type="submit">Thêm thiết bị</button>
+                <button class="btn btn-primary me-auto ms-2" type="submit">Cập nhật</button>
             </div>
         </form>
     </div>
@@ -87,7 +101,7 @@
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
 
 <script>
-    new MultiSelectTag('services')  
-    document.title = 'Thêm thiết bị'
+    new MultiSelectTag('services')
+    document.title = 'Cập nhật thiết bị'
 </script>
 @endsection

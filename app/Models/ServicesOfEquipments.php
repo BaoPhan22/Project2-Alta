@@ -10,4 +10,5 @@ class ServicesOfEquipments extends Model
     use HasFactory;
     protected $primaryKey = 'services_of_equipments_id';
     protected $guarded = [];
+    public $timestamps = false;
 }

@@ -82,13 +82,14 @@
                         <td>{{ $item->is_active }}</td>
                         <td>{{ $item->is_connect }}</td>
                         <td>
-                            <?php $a = unserialize($item->services) ;
-                            echo join(", ",$a);
-                            ?>
-
+                            @foreach($servicesOfEquipments as $servicesOfEquipmentsItem)
+                            @if($item->equipments_id === $servicesOfEquipmentsItem->equipments_id )
+                            <span>{{ $servicesOfEquipmentsItem->services_id }}</span>
+                            @endif
+                            @endforeach
                         </td>
                         <td>Chi tiết</td>
-                        <td>Cập nhật</td>
+                        <td><a href="{{ route('equipments.edit',$item->equipments_id) }}">Cập nhật</a></td>
                     </tr>
                     @endforeach
                     @else
