@@ -57,6 +57,7 @@ Route::controller(RoleController::class)->group(function () {
 Route::controller(EquipmentsController::class)->group(function () {
     Route::get('/equipments/all', 'ShowEquipments')->name('equipments.all');
     Route::get('/equipments/add', 'AddEquipments')->name('equipments.add');
+    Route::post('/equipments/store', 'StoreEquipments')->name('equipments.store');
 
 });
 

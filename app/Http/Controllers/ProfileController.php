@@ -22,7 +22,7 @@ class ProfileController extends Controller
      */
     public function ShowUsers()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->paginate(5);
         return view('system.users.all_users', compact('users'));
     }
 

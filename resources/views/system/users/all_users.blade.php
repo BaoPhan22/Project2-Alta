@@ -75,6 +75,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="row" id="paginator">{{ $users->links() }}</div>
         </div>
         <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('system.user.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Thêm tài khoản</a></div>
     </div>

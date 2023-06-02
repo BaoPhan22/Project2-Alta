@@ -21,11 +21,53 @@
     color: #fff;
 }
 
+#paginator nav{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+#paginator nav a{
+    color: #7E7D88;
+    text-decoration: none;
+}
+#paginator ul *{
+    border-radius: 5px;
+}
+
+#paginator ul * *{
+    background-color: transparent;
+    border: none;
+    padding: 10px 18px;
+}
+
+#paginator ul li{
+    margin-left: 4px;
+}
+
 .order {
     font-size: 56px;
     font-weight: 800;
     color: #ff7506;
     line-height: 60px;
+}
+
+.item-container {
+    color: #fff !important;
+    background-color: #FFAC6A !important;
+    border: none !important;
+}
+
+.body {
+    padding: 10px 0 !important;
+    border: #ff7506 1px solid;
+    border-radius: 10px;
+}
+
+
+
+.item-label {
+    color: #fff !important;
 }
 
 .service-chosen {
