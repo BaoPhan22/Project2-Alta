@@ -83,8 +83,8 @@
     </div>
 </div>
 </div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<link rel="stylesheet" href="{{ asset('css/multiselect.css') }}">
+<script src="{{ asset('js/multiselect.js') }}"></script>
 
 <script>
     new MultiSelectTag('services')  

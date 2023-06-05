@@ -11,7 +11,7 @@
                         <p class="fw-bold text-decoration-none link-dark">Thiết bị</p>
                     </li>
                     <li class="breadcrumb-item fw-bold" aria-current="page"><a href="{{ route('equipments.all') }}" class="fw-bold text-decoration-none link-dark">Danh sách thiết bị</a></li>
-                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="{{ route('equipments.add') }}" class="fw-bold text-decoration-none active-breadcumb">Cập nhật thiết bị</a></li>
+                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="#" class="fw-bold text-decoration-none active-breadcumb">Cập nhật thiết bị</a></li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <form class="mt-3" method="post" action="{{ route('equipments.store') }}">
+        <form class="mt-3" method="post" action="{{ route('equipments.update') }}">
             @csrf
             <input type="hidden" name="id" value="{{ $equipments->equipments_id }}">
             <div class="card ms-3 ps-0 mb-3">
@@ -68,19 +68,13 @@
                     <div class="row mb-3 px-0 mx-0">
                         <label for="services" class="form-label">Dịch vụ sử dụng <span class="text-danger">*</span></label>
                         <select class="form-select" id="services" name="services[]" multiple="multiple">
-                            <?php
-                            foreach ($services as $item) {
-                                if (in_array($item->services_id, $a)) {
-                            ?>
-                                    <option value="{{ $item->services_id }}" selected> {{ $item->name }} </option>
-                                <?php
-                                } else {
-                                ?>
-                                    <option value="{{ $item->services_id }}"> {{ $item->name }} </option>
-                            <?php
-                                }
-                            }
-                            ?>
+                            @foreach($services as $item)
+                            @if(in_array($item->services_id, $a))
+                            <option value="{{ $item->services_id }}" selected> {{ $item->name }} </option>
+                            @else
+                            <option value="{{ $item->services_id }}"> {{ $item->name }} </option>
+                            @endif
+                            @endforeach
                         </select>
 
                     </div>
@@ -97,8 +91,8 @@
     </div>
 </div>
 </div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<link rel="stylesheet" href="{{ asset('css/multiselect.css') }}">
+<script src="{{ asset('js/multiselect.js') }}"></script>
 
 <script>
     new MultiSelectTag('services')

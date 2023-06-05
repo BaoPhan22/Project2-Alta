@@ -59,6 +59,7 @@ Route::controller(EquipmentsController::class)->group(function () {
     Route::get('/equipments/add', 'AddEquipments')->name('equipments.add');
     Route::post('/equipments/store', 'StoreEquipments')->name('equipments.store');
     Route::get('/equipments/edit/{id}', 'EditEquipments')->name('equipments.edit');
+    Route::post('/equipments/update', 'UpdateEquipments')->name('equipments.update');
 
 });
 
