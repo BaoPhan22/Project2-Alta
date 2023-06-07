@@ -78,6 +78,7 @@ Route::controller(ServicesController::class)->group(function () {
 Route::controller(QueuingController::class)->group(function () {
     Route::get('/queuings/all', 'ShowQueuings')->name('queuings.all');
     Route::get('/queuings/add', 'AddQueuings')->name('queuings.add');
+    Route::post('/queuings/store', 'StoreQueuings')->name('queuings.store');
 });
 
 require __DIR__.'/auth.php';

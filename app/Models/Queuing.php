@@ -10,4 +10,5 @@ class Queuing extends Model
     use HasFactory;
     protected $primaryKey = 'queuing_id';
     protected $guarded = [];
+    public $timestamps = false;
 }

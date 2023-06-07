@@ -10,7 +10,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="fw-bold text-decoration-none link-dark">Dịch vụ</a></li>
                     <li class="breadcrumb-item fw-bold" aria-current="page"><a href="{{ route('services.all') }}" class="fw-bold text-decoration-none link-dark">Danh sách dịch vụ</a></li>
-                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="{{ route('services.add') }}" class="fw-bold text-decoration-none active-breadcumb">Thêm dịch vụ</a></li>
+                    <li class="breadcrumb-item active-breadcumb fw-bold" aria-current="page"><a href="#" class="fw-bold text-decoration-none active-breadcumb">Cập nhật dịch vụ</a></li>
 
                 </ol>
             </nav>
@@ -51,29 +51,33 @@
                         <div class="row ps-4 py-3">
                             <div class="row text-primary fw-bold fs-5">Quy tắc cấp số</div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="true" id="autoIncreasing" name="autoIncreasing" {{ ($services_id->from != null) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="autoIncreasing">
                                     Tăng tự động từ:
-                                    <input type="text" value="0001" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
+                                    <input type="text" value="{{ ($services_id->from) ? $services_id->from : 0001 }}" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center" id="from" name="from" {{ ($services_id->from != null) ? '' : 'disabled' }}>
                                     đến:
-                                    <input type="text" value="9999" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
+                                    <input type="text" value="{{ ($services_id->to) ? $services_id->to : 9999 }}" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center" id="to" name="to" {{ ($services_id->from != null) ? '' : 'disabled' }}>
                                 </label>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="flexCheckDefault1">
-                                <label class="form-check-label" for="flexCheckDefault1">
+                                @if ($services_id->rule!==null && $services_id->rule == 0)
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="0" id="prefix" onclick="onlyOne(this)" name="rule" checked>
+                                @else
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="0" id="prefix" onclick="onlyOne(this)" name="rule">
+                                @endif
+                                <label class="form-check-label" for="prefix">
                                     Prefix:
-                                </label><input type="text" value="0001" style="width: 70px; margin-left: 96px" class="p-2 rounded-3 text-center">
+                                </label><input type="text" value="0001" style="width: 70px; margin-left: 96px" class="p-2 rounded-3 text-center" disabled>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input  my-auto me-2" type="checkbox" value="" id="flexCheckDefault2">
-                                <label class="form-check-label" for="flexCheckDefault2">
+                                <input class="form-check-input  my-auto me-2" type="checkbox" value="1" id="surfix" onclick="onlyOne(this)" name="rule" {{ ($services_id->rule == 1) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="surfix">
                                     Surfix:
-                                </label><input type="text" value="0001" style="width: 70px; margin-left: 95.025px" class="p-2 rounded-3 text-center">
+                                </label><input type="text" value="0001" style="width: 70px; margin-left: 95.025px" class="p-2 rounded-3 text-center" disabled>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="flexCheckDefault3">
-                                <label class="form-check-label" for="flexCheckDefault3">
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="1" id="resetByDay" name="resetByDay" {{ ($services_id->reset_by_day == 1) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="resetByDay">
                                     Reset mỗi ngày
                                 </label>
                             </div>
@@ -92,10 +96,43 @@
     </div>
 </div>
 
-
-
 <script>
+    // get value from checkbox vanila js
+    var autoIncreasing = document.getElementById('autoIncreasing');
+    var prefix = document.getElementById('prefix');
+    var surfix = document.getElementById('surfix');
+    var resetByDay = document.getElementById('resetByDay');
+    var from = document.getElementById('from');
+    var to = document.getElementById('to');
+
     document.title = 'Cập nhật dịch vụ'
+
+    function onlyOne(checkbox) {
+        var checkboxes = document.getElementsByName('rule')
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+    }
+
+    autoIncreasing.addEventListener('change', () => {
+        if (autoIncreasing.checked) {
+            prefix.checked = true;
+            from.disabled = false;
+            to.disabled = false;
+            surfix.disabled = false;
+            prefix.disabled = false;
+            resetByDay.disabled = false;
+        } else {
+            prefix.checked = false;
+            from.disabled = true;
+            to.disabled = true;
+            resetByDay.checked = false;
+            surfix.checked = false;
+            surfix.disabled = true;
+            prefix.disabled = true;
+            resetByDay.disabled = true;
+        }
+    })
 </script>
 
 @endsection

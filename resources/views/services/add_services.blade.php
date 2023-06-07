@@ -50,28 +50,28 @@
                         <div class="row ps-4 py-3">
                             <div class="row text-primary fw-bold fs-5">Quy tắc cấp số</div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="autoIncreasing">
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="true" id="autoIncreasing" name="autoIncreasing">
                                 <label class="form-check-label" for="autoIncreasing">
                                     Tăng tự động từ:
-                                    <input type="text" value="0001" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
+                                    <input type="text" value="0001" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center" id="from" name="from" disabled>
                                     đến:
-                                    <input type="text" value="9999" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
+                                    <input type="text" value="9999" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center" id="to" name="to" disabled>
                                 </label>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="prefix" onclick="onlyOne(this)" name="rule">
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="0" id="prefix" onclick="onlyOne(this)" name="rule" disabled>
                                 <label class="form-check-label" for="prefix">
                                     Prefix:
-                                </label><input type="text" value="0001" style="width: 70px; margin-left: 96px" class="p-2 rounded-3 text-center">
+                                </label><input type="text" value="0001" style="width: 70px; margin-left: 96px" class="p-2 rounded-3 text-center" disabled checked>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input  my-auto me-2" type="checkbox" value="" id="surfix" onclick="onlyOne(this)" name="rule">
+                                <input class="form-check-input  my-auto me-2" type="checkbox" value="1" id="surfix" onclick="onlyOne(this)" name="rule" disabled>
                                 <label class="form-check-label" for="surfix">
                                     Surfix:
-                                </label><input type="text" value="0001" style="width: 70px; margin-left: 95.025px" class="p-2 rounded-3 text-center">
+                                </label><input type="text" value="0001" style="width: 70px; margin-left: 95.025px" class="p-2 rounded-3 text-center" disabled>
                             </div>
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input my-auto me-2" type="checkbox" value="" id="resetByDay">
+                                <input class="form-check-input my-auto me-2" type="checkbox" value="1" id="resetByDay" name="resetByDay" disabled>
                                 <label class="form-check-label" for="resetByDay">
                                     Reset mỗi ngày
                                 </label>
@@ -92,6 +92,14 @@
 </div>
 
 <script>
+    // get value from checkbox vanila js
+    var autoIncreasing = document.getElementById('autoIncreasing');
+    var prefix = document.getElementById('prefix');
+    var surfix = document.getElementById('surfix');
+    var resetByDay = document.getElementById('resetByDay');
+    var from = document.getElementById('from');
+    var to = document.getElementById('to');
+
     document.title = 'Thêm dịch vụ'
 
     function onlyOne(checkbox) {
@@ -100,6 +108,26 @@
             if (item !== checkbox) item.checked = false
         })
     }
+
+    autoIncreasing.addEventListener('change', () => {
+        if (autoIncreasing.checked) {
+            prefix.checked = true;
+            from.disabled = false;
+            to.disabled = false;
+            surfix.disabled = false;
+            prefix.disabled = false;
+            resetByDay.disabled = false;
+        } else {
+            prefix.checked = false;
+            from.disabled = true;
+            to.disabled = true;
+            resetByDay.checked = false;
+            surfix.checked = false;
+            surfix.disabled = true;
+            prefix.disabled = true;
+            resetByDay.disabled = true;
+        }
+    });
 </script>
 
 @endsection

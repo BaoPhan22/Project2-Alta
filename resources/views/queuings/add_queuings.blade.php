@@ -1,6 +1,9 @@
 @extends('layouts.master')
 @section('content')
 
+@if(isset($selectedItem_hidden))
+<input type="hidden" id="selectedItemToShow" value="{{ $selectedItem_hidden }}">
+@endif
 
 <div class="col-10">
 
@@ -26,15 +29,62 @@
         </div>
     </div>
     <div class="row">
-        <form class="mt-3" method="post" action="#">
+
+        <form class="mt-3" method="post" action="{{ route('queuings.store') }}">
             @csrf
+            <input type="hidden" name="iduser_hidden" value="{{ Auth::user()->id }}">
+            <input type="hidden" name="idservice_hidden" id="services_hidden">
+            <input type="hidden" name="idequip_hidden" id="idequip_hidden">
+            <input type="hidden" name="start_hidden" id="start_hidden">
+            <input type="hidden" name="end_hidden" id="end_hidden">
+            <input type="hidden" name="rsbd_hidden" id="rsbd_hidden">
+            <input type="hidden" name="selectedItem_hidden" id="selectedItem_hidden">
+
+
             <div class="card ms-3 ps-0 mb-3">
                 <div class="card-body row pb-5">
                     <div class="row button-container m-auto text-center">
                         <div class="mb-3">
                             <label class="form-label fw-bold text-primary ms-1 fs-3">Cấp số mới</label>
-                            <p class="fw-bold ms-1 fs-5">Dịch vụ khách hàng lựa chọn</p>
+                            <p class="fw-bold ms-1 fs-5">Dịch vụ khách hàng lựa chọn</p>@if(isset($queuings))
+                            <input type="hidden" value="{{ $queuings }}" id='queuings'>
+                            @php
+                            $queuingsToShow = App\Models\Queuing::find($queuings);
+                            @endphp
+                            <input type="hidden" id="orderFromDB" value="{{ $queuingsToShow->order }}">
+                            <input type="hidden" id="start_dateFromDB" value="{{ $queuingsToShow->start_date }}">
+                            <input type="hidden" id="end_dateFromDB" value="{{ $queuingsToShow->end_date }}">
+                            <input type="hidden" id="services_idFromDB" value="{{ $queuingsToShow->services_id }}">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header pb-0" style="border: none;">
+                                            <button type="button" style="width:20px" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body pb-0" style="border: none;">
+                                            <div class="row">
+                                                <p class="fw-bold fs-3">Số thứ tự được cấp</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="order" id="order">{{ $queuingsToShow->order }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="service-chosen" id='service-chosen'>{{ $queuingsToShow->services_id }}</p>
+                                            </div>
+                                            <div class="row background-primary" style="margin: 0 -18px !important">
+                                                <div class="row ms-0 fw-bold mt-3 time-stamp">
+                                                    <p>Thời gian cấp: <span id="start_date">{{ $queuingsToShow->start_date }}</span></p>
+                                                </div>
+                                                <div class="row ms-0 fw-bold time-stamp">
+                                                    <p>Hạn sử dụng: <span id="end_date">{{ $queuingsToShow->end_date }}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                             <select class="form-select w-50 m-auto mb-5" name="services" id='services'>
                                 <option value="0" disabled selected>Chọn dịch vụ</option>
                                 @foreach($services_cate as $item)
@@ -43,42 +93,11 @@
                             </select>
                         </div>
                         <a href="{{ route('queuings.all') }}" class="btn btn-outline-primary ms-auto me-2">Hủy bỏ</a>
-                        <button class="btn btn-primary me-auto ms-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">In số</button>
+                        <button class="btn btn-primary me-auto ms-2" type="submit">In số</button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header pb-0" style="border: none;">
-                                        <button type="button" style="width:20px" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body pb-0" style="border: none;">
-                                        <div class="row">
-                                            <p class="fw-bold fs-3">Số thứ tự được cấp</p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="order" id="order"></p>
-                                        </div>
-                                        <div class="row">
-                                            <p class="service-chosen" id='service-chosen'>Chưa chọn dịch vụ vui lòng chọn lại</p>
-                                        </div>
-                                        <div class="row background-primary" style="margin: 0 -18px !important">
-                                            <div class="row ms-0 fw-bold mt-3 time-stamp">
-                                                <p>Thời gian cấp: <span id="start_date"></span></p>
-                                            </div>
-                                            <div class="row ms-0 fw-bold time-stamp">
-                                                <p>Hạn sử dụng: <span id="end_date"></span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
 </div>
@@ -88,9 +107,18 @@
         <input type="hidden" value="{{ $item->services_id}}" id="services_id_info">
         <input type="hidden" value="{{ $item->services_id_custom }}" id="services_id_custom_info">
         <input type="hidden" value="{{ $item->name }}" id="services_name_info">
+        <input type="hidden" value="{{ $item->from }}" id="from">
+        <input type="hidden" value="{{ $item->to }}" id="to">
+        <input type="hidden" value="{{ $item->rule }}" id="rule">
+        <input type="hidden" value="{{ $item->reset_by_day }}" id="reset_by_day">
     </div>
     @endforeach
+
+
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
 <script>
     document.title = 'Cấp số mới'
     const serviceInfoArray = [];
@@ -104,18 +132,25 @@
         let hour = date.getHours();
         let minute = date.getMinutes();
 
+
         let start_date = `${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute} ${day<10?'0'+day:day}/${month<10?'0'+month:month}/${year}`;
-        let end_date = `${parseInt(hour<10?'0'+hour:hour)+8}:${minute<10?'0'+minute:minute} ${day<10?'0'+day:day}/${month<10?'0'+month:month}/${year}`;
-        document.getElementById('start_date').innerHTML = start_date;
-        document.getElementById('end_date').innerHTML = end_date;
+
+        let end_date = (hour <= 22) ? `${parseInt(hour<10?'0'+hour:hour)+8}:${minute<10?'0'+minute:minute} ${day<10?'0'+day:day}/${month<10?'0'+month:month}/${year}` : `22:00 ${day<10?'0'+day:day}/${month<10?'0'+month:month}/${year}`;
+
+
+
+        document.getElementById('end_hidden').value = end_date;
+        document.getElementById('start_hidden').value = start_date;
+
 
 
         const selectedItem = e.target.value;
         const selectedItemInfo = serviceInfoArray.filter(a => a.id === selectedItem)
-        // console.log(selectedItemInfo[0].name);
-        // console.log(selectedItemInfo[0].services_id_custom);
-        document.getElementById('service-chosen').innerHTML = selectedItemInfo[0].name;
-        document.getElementById('order').innerHTML = `${selectedItemInfo[0].services_id_custom}${2001}`;
+
+        document.getElementById('selectedItem_hidden').value = (JSON.stringify(selectedItemInfo[0]));
+
+        document.getElementById('rsbd_hidden').value = selectedItemInfo[0].reset_by_day;
+        document.getElementById('services_hidden').value = selectedItemInfo[0].id;
     })
 
     let serviceInfo = document.querySelectorAll('#serviceInfo');
@@ -123,10 +158,46 @@
         serviceInfoArray.push({
             id: item.children[0].value,
             services_id_custom: item.children[1].value,
-            name: item.children[2].value
+            name: item.children[2].value,
+            from: item.children[3].value,
+            to: item.children[4].value,
+            rule: item.children[5].value,
+            reset_by_day: item.children[6].value,
         });
     })
     console.log(serviceInfoArray);
 </script>
+<script type="text/javascript">
+    if (document.getElementById('queuings')) {
+        $(window).on('load', function() {
+            $('#exampleModal').modal('show');
+        });
 
+        let orderDisplay = document.getElementById('order').innerHTML;
+
+        let a = parseInt(orderDisplay);
+        let b = 4;
+        if (a > 1000) b = 0;
+        else b = 4;
+
+
+        orderDisplay = 202;
+        let toDisplayOrder = '';
+        const displayRule = JSON.parse(selectedItemToShow.value);
+        if (displayRule.rule == 1) {
+            // prefix
+            toDisplayOrder = `${displayRule.services_id_custom}${a.toString().padStart(b,'0')}`
+        } else {
+            // surfix
+            toDisplayOrder = `${a.toString().padStart(b,'0')}${displayRule.services_id_custom}`
+        }
+        console.log(displayRule);
+
+        let toDisplayServiceName = displayRule.name;
+
+        document.getElementById('service-chosen').innerHTML = toDisplayServiceName;
+
+        document.getElementById('order').innerHTML = toDisplayOrder;
+    }
+</script>
 @endsection

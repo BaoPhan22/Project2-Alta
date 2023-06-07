@@ -25,8 +25,8 @@
                 <p class="keyword-form mb-0">Trạng thái hoạt động</p>
             </div>
             <div class="row">
-                <select name="role_id" class="form-select ms-2">
-                    <option value="Tất cả"> Tất cả </option>
+                <select name="isActive" id="isActive" class="form-select ms-2">
+                    <option value=""> Tất cả </option>
                     <option value="Hoạt động"> Hoạt động </option>
                     <option value="Ngưng hoạt động"> Ngưng hoạt động </option>
                 </select>
@@ -37,8 +37,8 @@
                 <p class="keyword-form mb-0">Trạng thái kết nối</p>
             </div>
             <div class="row">
-                <select name="role_id" class="form-select ms-2">
-                    <option value="Tất cả"> Tất cả </option>
+                <select name="isConnect" id="isConnect" class="form-select ms-2">
+                    <option value=""> Tất cả </option>
                     <option value="Kết nối"> Kết nối </option>
                     <option value="Mất kết nối"> Mất kết nối </option>
                 </select>
@@ -50,7 +50,7 @@
             </div>
             <div class="row">
                 <form class="d-flex" style='position: relative'>
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="search" id="search" placeholder="Search" aria-label="Search">
                     <button class="search-button"><i class="bi bi-search"></i></button>
                 </form>
             </div>
@@ -59,7 +59,7 @@
 
     <div class="row my-3">
         <div class="col-11">
-            <table class="table table-striped table-bordered custom-table ms-2">
+            <table class="table table-striped table-bordered custom-table ms-2" id="table-main">
                 <thead>
                     <tr>
                         <th>Mã thiết bị</th>
@@ -79,12 +79,12 @@
                         <td>{{ $item->equipments_id_custom }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->ip_address }}</td>
-                        <td>{{ $item->is_active }}</td>
-                        <td>{{ $item->is_connect }}</td>
+                        <td id="activeColumn">{{ $item->is_active }}</td>
+                        <td id="connectColumn">{{ $item->is_connect }}</td>
                         <td>
                             @foreach($servicesOfEquipments as $servicesOfEquipmentsItem)
                             @if($item->equipments_id === $servicesOfEquipmentsItem->equipments_id )
-                            <span>{{ $servicesOfEquipmentsItem->services_id }}</span>
+                            <span>{{ $servicesOfEquipmentsItem->services_id }},</span>
                             @endif
                             @endforeach
                         </td>
@@ -106,6 +106,15 @@
 
 <script>
     document.title = 'Tất cả thiết bị'
+
+    const isConnect = document.querySelector('#isConnect');
+    const isActive = document.querySelector('#isActive');
+    const table_main = document.querySelector('#table-main');
+    const activeColumn = document.querySelectorAll('#activeColumn');
+    const connectColumn = document.querySelectorAll('#connectColumn');
+    let tableRows = document.querySelectorAll('tbody tr')
+    let searchInput = document.querySelector('#search');
+
 </script>
 
 

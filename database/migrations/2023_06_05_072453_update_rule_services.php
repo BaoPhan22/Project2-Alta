@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('queuings', function (Blueprint $table) {
-            $table->string('start_date',55);
-            $table->string('end_date',55);
+        Schema::table('services', function (Blueprint $table) {
+            $table->dropColumn('prefix');
+            $table->dropColumn('surfix');
+            $table->boolean('rule')->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('queuings', function (Blueprint $table) {
+        Schema::table('services', function (Blueprint $table) {
             //
         });
     }

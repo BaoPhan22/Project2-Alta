@@ -40,24 +40,30 @@
                 </div>
 
                 <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Quy tắc cấp số</div>
+                @if ($services_id->from)
                 <div class="card-body">
                     <div class="row mb-3">
                         <span>
                             <strong>Tăng tự động:</strong>
-                            <input type="text" value="0001" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
+                            <input type="text" value="{{ ($services_id->from) ? $services_id->from : 0001 }}" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center">
                             <strong>đến:</strong>
-                            <input type="text" value="9999" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center"></span>
+                            <input type="text" value="{{ ($services_id->to) ? $services_id->to : 0001 }}" style="width: 70px;" class="mx-2 p-2 rounded-3 text-center"></span>
                     </div>
                     <div class="row mb-3">
                         <span>
-                            <strong>Prefix:</strong>
+                            <strong>{{ ($services_id->rule == 0) ? 'Prefix: ' : 'Surfix: '  }}</strong>
                             <input type="text" value="0001" style="width: 70px; margin-left: 70px" class="p-2 rounded-3 text-center">
                         </span>
                     </div>
                     <div class="row">
+                        @if ($services_id->reset_by_day)
                         <strong>Reset mỗi ngày </strong> <span class="col-8">Ví dụ: 201-2001</span>
+                        @endif
                     </div>
                 </div>
+                @else
+                <div class="mb-3 row ms-1 mt-1"><strong>Hiện dịch vụ này chưa có quy tắc cấp số</strong></div>
+                @endif
             </div>
         </div>
         <div class="col-7"></div>
