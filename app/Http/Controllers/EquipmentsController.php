@@ -14,9 +14,14 @@ class EquipmentsController extends Controller
 {
     public function ShowEquipments()
     {
+        $services_id = Services::all('services_id','name');
+        // foreach($services_id as $item) {
+        //     if ($item->services_id == 1)
+        //     echo $item->name;
+        // }
         $equipments = Equipments::all();
         $servicesOfEquipments = ServicesOfEquipments::all();
-        return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments'));
+        return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments','services_id'));
     }
     public function AddEquipments()
     {

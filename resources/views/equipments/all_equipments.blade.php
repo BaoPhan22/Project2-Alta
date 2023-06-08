@@ -81,10 +81,14 @@
                         <td>{{ $item->ip_address }}</td>
                         <td id="activeColumn">{{ $item->is_active }}</td>
                         <td id="connectColumn">{{ $item->is_connect }}</td>
-                        <td>
+                        <td class="displayServicesContainer">
                             @foreach($servicesOfEquipments as $servicesOfEquipmentsItem)
                             @if($item->equipments_id === $servicesOfEquipmentsItem->equipments_id )
-                            <span>{{ $servicesOfEquipmentsItem->services_id }},</span>
+                            @foreach($services_id as $services_id_item)
+                            @if($services_id_item->services_id == $servicesOfEquipmentsItem->services_id)
+                            <span class="servicesDisplay">{{ $services_id_item->name }}</span>
+                            @endif
+                            @endforeach
                             @endif
                             @endforeach
                         </td>
@@ -115,6 +119,13 @@
     let tableRows = document.querySelectorAll('tbody tr')
     let searchInput = document.querySelector('#search');
 
+
+    let myArray = [];
+    const displayServicesContainer = document.querySelectorAll('.displayServicesContainer');
+    const servicesDisplay = document.querySelectorAll('.servicesDisplay');
+    displayServicesContainer.forEach(item => myArray.push(Array.from(item.childNodes)));
+
+    console.log(myArray);
 </script>
 
 
