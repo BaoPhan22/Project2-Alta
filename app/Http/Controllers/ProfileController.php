@@ -14,28 +14,21 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 
-
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function MyProfile($id) {
+    public function MyProfile(int $id)
+    {
         if ($id != Auth::user()->id) return redirect()->back();
-        $user = User::select('username', 'users.name as un', 'phone', 'email', 'password', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->where('users.id','=',$id)->get();
-        // print_r($users);
-        // echo $users;
-        // foreach($user as $item) echo $item;
+        $user = User::select('username', 'users.name as un', 'phone', 'email', 'password', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->where('users.id', $id)->get();
         return view('profile.edit', compact('user'));
-        // echo $user[0]; 
     }
 
     public function ShowUsers()
     {
         $users = User::select('username', 'users.name as un', 'phone', 'email', 'status', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->orderBy('id', 'desc')->paginate(5);
-        // print_r($users);
-        // echo $users;
-        // foreach($users as $item) echo $item;
         return view('system.users.all_users', compact('users'));
     }
 
@@ -71,10 +64,10 @@ class ProfileController extends Controller
         return redirect()->route('system.user');
     }
 
-    public function EditUser($id)
+    public function EditUser(int $id)
     {
-        $user = User::find($id);
-        $roles = Role::all();
+        $user = User::select('id','users.name', 'username', 'email', 'password', 'phone', 'status')->where('id', '=', $id)->get();
+        $roles = Role::all('role_id', 'name');
         return view('system.users.edit_user', compact('user', 'roles'));
     }
 

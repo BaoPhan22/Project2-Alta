@@ -10,7 +10,11 @@ use Mockery\Undefined;
 
 class QueuingController extends Controller
 {
-    public function ReportQueuings()
+    public function ReportByDate(Request $request) {
+        echo $request->sd;
+        echo $request->ed;
+    }
+    public function ReportQueuings($sd = null, $ed = null)
     {
         function convertDateToArray($date)
         {
@@ -18,20 +22,22 @@ class QueuingController extends Controller
             return explode('/', $date);
         }
 
-        [$sd, $sm, $sy] = convertDateToArray('17:38 06/06/2023');
-        [$ed, $em, $ey] = convertDateToArray('17:38 06/06/2023');
+        // [$sd, $sm, $sy] = convertDateToArray('17:38 06/06/2023');
+        // [$ed, $em, $ey] = convertDateToArray('17:38 06/06/2023');
+
+
 
         // if sd not null
-        if (isset($sd) && $sd > 0 && $sd <= 31) {
+        if (isset($sd, $sm, $sy) || isset($ed, $em, $ey)) {
             $sorted_by_date = [];
             $queuings = Queuing::select('queuing_id', 'start_date')->get();
             // if ed is not null
-            if (isset($ed) && $ed > 0 && $ed <= 31) {
+            if (isset($ed)) {
                 foreach ($queuings as $item) {
                     if (convertDateToArray($item->start_date)[0] >= $sd && convertDateToArray($item->start_date)[0] <= $ed)
                         array_push($sorted_by_date, Queuing::findOrFail($item->queuing_id));
                 }
-            // if ed is null
+                // if ed is null
             } else {
                 foreach ($queuings as $item) {
                     if (convertDateToArray($item->start_date)[0] >= $sd)
@@ -40,9 +46,9 @@ class QueuingController extends Controller
             }
             $queuings = $sorted_by_date;
             $paginate = false;
-        // if sd is null
+            // if sd is null
         } else {
-            $queuings = Queuing::orderBy('queuing_id', 'asc')->paginate(11);
+            $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->orderBy('queuing_id', 'asc')->paginate(11);
             $paginate = true;
         }
 
@@ -52,20 +58,17 @@ class QueuingController extends Controller
     }
     public function ShowQueuings()
     {
-        $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
-        $equip_cate = Equipments::all('equipments_id', 'name');
-        // foreach($services_cate as $item) {
-        //     if ($item->services_id == 3) echo $item->name;
-        // }
-        $queuings = Queuing::orderBy('queuing_id', 'asc')->paginate(8);
-        return view('queuings.all_queuings', compact('queuings', 'services_cate', 'equip_cate'));
+        $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->orderBy('queuing_id', 'asc')->paginate(11);
+        return view('queuings.all_queuings', compact(
+            'queuings'
+        ));
     }
     public function ShowQueuingsDetail($id)
     {
-        $equip_cate = Equipments::all('equipments_id', 'name');
-        $queuings_detail = Queuing::findOrFail($id);
-        $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
-        return view('queuings.detail_queuings', compact('queuings_detail', 'services_cate', 'equip_cate'));
+        $queuings_detail = Queuing::select('services.rule as rule', 'services.name as sn', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->where('queuings.queuing_id', '=', $id)->get();
+        return view('queuings.detail_queuings', compact('queuings_detail'));
+        // echo $id;
+        // echo $queuings_detail;
     }
     public function AddQueuings()
     {

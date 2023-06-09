@@ -23,7 +23,6 @@ class EquipmentsController extends Controller
         return view(
             'equipments.detail_equipments',
             compact(
-                // 'queuings_detail','services_cate',
                 'equip','equip_cate','servicesOfEquipments','services_id'
             )
         );

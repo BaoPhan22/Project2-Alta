@@ -78,7 +78,8 @@ Route::controller(ServicesController::class)->group(function () {
 
 // Queuing Controller
 Route::controller(QueuingController::class)->group(function () {
-    Route::get('/report', 'ReportQueuings')->name('report');
+    Route::get('/report/{sd?}/{ed?}', 'ReportQueuings')->name('report');
+    Route::post('/report', 'ReportByDate')->name('reportByDate');
     Route::get('/queuings/all', 'ShowQueuings')->name('queuings.all');
     Route::get('/queuings/add', 'AddQueuings')->name('queuings.add');
     Route::post('/queuings/add', 'StoreQueuings')->name('queuings.store');

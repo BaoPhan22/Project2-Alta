@@ -33,5 +33,5 @@
         </div>
     </div>
 </body>
-
+<script src="{{ asset('js/getValueFromCheckbox.js') }}"></script>
 </html>

@@ -27,28 +27,28 @@
     <div class="row">
         <form class="mt-3" method="post" action="{{ route('system.user.update') }}">
             @csrf
-            <input type="hidden" name="id" value="{{ $user->id }}">
+            <input type="hidden" name="id" value="{{ $user[0]->id }}">
             <div class="card ms-3 ps-0 mb-3">
                 <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Thông tin tài khoản</div>
                 <div class="card-body row pb-0">
                     <div class="col">
                         <div class="mb-3">
                             <label for="name" class="form-label">Họ tên <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập họ tên" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                            <input type="text" placeholder="Nhập họ tên" class="form-control" id="name" name="name" value="{{ $user[0]->name }}">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập số điện thoại" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+                            <input type="text" placeholder="Nhập số điện thoại" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone }}">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                            <input type="text" placeholder="Nhập email" class="form-control" id="email" name="email" value="{{ $user[0]->email }}">
                         </div>
                         <div class="mb-3">
                             <label for="role_id" class="form-label">Vai trò <span class="text-danger">*</span></label>
                             <select name="role_id" class="form-select">
                                 @foreach ($roles as $role)
-                                <option value="{{ $role->role_id }}" {{ ($role->role_id === $user->role_id) ? 'selected' : '' }}> {{ $role->name }} </option>
+                                <option value="{{ $role->role_id }}" {{ ($role->role_id === $user[0]->role_id) ? 'selected' : '' }}> {{ $role->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +56,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="username" class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Nhập tên đăng nhập" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                            <input type="text" placeholder="Nhập tên đăng nhập" class="form-control" id="username" name="username" value="{{ $user[0]->username }}">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
@@ -70,7 +70,7 @@
                             <label for="status" class="form-label">Tình trạng <span class="text-danger">*</span></label>
                             <select class="form-select" name="status">
                                 <option value="Hoạt động">Hoạt động</option>
-                                <option value="Ngưng hoạt động" {{ ($user->status === 'Ngưng hoạt động') ? 'selected' : '' }}>Ngưng hoạt động</option>
+                                <option value="Ngưng hoạt động" {{ ($user[0]->status === 'Ngưng hoạt động') ? 'selected' : '' }}>Ngưng hoạt động</option>
                             </select>
                         </div>
                     </div>
