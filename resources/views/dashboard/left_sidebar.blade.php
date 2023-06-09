@@ -6,7 +6,7 @@
     <div class="w-100 mb-auto">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{ route('dashboard') }}" class="nav-link active link-dark rounded-0 ps-0">
+                <a href="{{ route('dashboard') }}" class="nav-link link-dark rounded-0 ps-0">
                     <i class="bi bi-motherboard ms-3"></i>&nbsp;
                     Dashboard
                 </a>
@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link link-dark rounded-0 ps-0">
+                <a href="{{ route('report') }}" class="nav-link link-dark rounded-0 ps-0">
                     <i class="bi bi-file-earmark-bar-graph ms-3"></i>&nbsp;
                     Báo cáo
                 </a>

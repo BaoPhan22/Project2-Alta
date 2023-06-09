@@ -40,6 +40,7 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('/system/user/edit/{id}', 'EditUser')->name('system.user.edit');
     Route::post('/system/user/store', 'StoreUser')->name('system.user.store');
     Route::post('/system/user/update', 'UpdateUser')->name('system.user.update');
+    Route::get('/myprofile/{id}', 'MyProfile')->name('myprofile');
 });
 
 
@@ -60,6 +61,7 @@ Route::controller(EquipmentsController::class)->group(function () {
     Route::post('/equipments/store', 'StoreEquipments')->name('equipments.store');
     Route::get('/equipments/edit/{id}', 'EditEquipments')->name('equipments.edit');
     Route::post('/equipments/update', 'UpdateEquipments')->name('equipments.update');
+    Route::get('/equipments/detail/{id}', 'ShowEquipmentsDetail')->name('equipments.detail');
 
 });
 
@@ -76,9 +78,11 @@ Route::controller(ServicesController::class)->group(function () {
 
 // Queuing Controller
 Route::controller(QueuingController::class)->group(function () {
+    Route::get('/report', 'ReportQueuings')->name('report');
     Route::get('/queuings/all', 'ShowQueuings')->name('queuings.all');
     Route::get('/queuings/add', 'AddQueuings')->name('queuings.add');
-    Route::post('/queuings/store', 'StoreQueuings')->name('queuings.store');
+    Route::post('/queuings/add', 'StoreQueuings')->name('queuings.store');
+    Route::get('/queuings/detail/{id}', 'ShowQueuingsDetail')->name('queuings.detail');
 });
 
 require __DIR__.'/auth.php';

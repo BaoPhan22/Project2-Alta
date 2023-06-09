@@ -132,7 +132,7 @@
             prefix.disabled = true;
             resetByDay.disabled = true;
         }
-    })
+    });
 </script>
 
 @endsection

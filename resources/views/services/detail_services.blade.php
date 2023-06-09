@@ -66,11 +66,84 @@
                 @endif
             </div>
         </div>
-        <div class="col-7"></div>
-        <div class="col-1 pe-0 ps-3 fw-bold">
-            <a href="{{ route('services.add') }}" class="btn customize-add-button mb-1"><i class="bi bi-plus-square-fill"></i><br> Cập nhật danh sách</a>
+        <div class="col-7">
+        @if(isset($queuing) && count($queuing)>0)
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col ps-4">
+                            <div class="row">
+                                <p class="keyword-form mb-0">Trạng thái hoạt động</p>
+                            </div>
+                            <div class="row">
+                                <select name="role_id" class="form-select ms-2">
+                                    <option value="Tất cả"> Tất cả </option>
+                                    <option value="Hoạt động"> Hoạt động </option>
+                                    <option value="Ngưng hoạt động"> Ngưng hoạt động </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col px-5">
+                            <div class="row">
+                                <p class="keyword-form mb-0">Từ khóa</p>
+                            </div>
+                            <div class="row">
+                                <form class="d-flex" style='position: relative'>
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="search-button"><i class="bi bi-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered custom-table" style="translate: 0;">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($queuing as $item)
+                            <tr>
+                                <td>
+                                    @if ($services_id->rule == 1)
+                                    @php
+                                    echo $services_id->services_id_custom;
+                                    echo str_pad($item->order,4,'0',STR_PAD_LEFT);
+                                    @endphp
+                                    @else
+                                    @php
+                                    echo str_pad($item->order,4,'0',STR_PAD_LEFT);
+                                    echo $services_id->services_id_custom;
+                                    @endphp
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($item->status == 'Đang chờ')
+                                    <i class="bi bi-circle-fill text-info"></i>
+                                    {{$item->status}}
+                                    @elseif($item->status == 'Đã sử dụng')
+                                    <i class="bi bi-circle-fill text-secondary"></i>
+                                    {{$item->status}}
+                                    @else
+                                    <i class="bi bi-circle-fill text-danger"></i>
+                                    {{$item->status}}
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
 
-            <a href="{{ route('services.all') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Quay lại</a>
+                    </table>
+                    <div class="row" id="paginator">{{ $queuing->links() }}</div>
+                </div>
+            </div>
+            @endif
+        </div>
+        <div class="col-1 pe-0 ps-3 fw-bold">
+            <a href="{{ route('services.edit',$services_id->services_id) }}" class="btn customize-add-button mb-1"><i class="bi bi-pen-fill"></i><br> Cập nhật danh sách</a>
+
+            <a href="{{ route('services.all') }}" class="btn customize-add-button"><i class="bi bi-arrow-left-circle-fill"></i><br> Quay lại</a>
         </div>
     </div>
 </div>

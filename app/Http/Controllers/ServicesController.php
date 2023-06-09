@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Queuing;
 use Illuminate\Http\Request;
 use App\Models\Services;
 use stdClass;
@@ -62,7 +63,12 @@ class ServicesController extends Controller
     public function DetailServices($id)
     {
         $services_id = Services::find($id);
-        return view('services.detail_services', compact('services_id'));
+        $queuing = Queuing::select('order','status')->where('services_id', '=', $id)->paginate(10);
+        return view('services.detail_services', compact('services_id','queuing'));
+        // echo $services_id;
+        // foreach($queuing as $item) {
+        //     echo $item;
+        // } 
     }
     public function UpdateServices(Request $request)
     {

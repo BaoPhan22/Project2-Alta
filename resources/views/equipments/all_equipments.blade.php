@@ -79,20 +79,36 @@
                         <td>{{ $item->equipments_id_custom }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->ip_address }}</td>
-                        <td id="activeColumn">{{ $item->is_active }}</td>
-                        <td id="connectColumn">{{ $item->is_connect }}</td>
+                        <td id="activeColumn">
+                            @if($item->is_active == 'Đang hoạt động')
+                            <i class="bi bi-circle-fill text-info"></i>
+                            {{$item->is_active}}
+                            @else
+                            <i class="bi bi-circle-fill text-danger"></i>
+                            {{$item->is_active}}
+                            @endif
+                        </td>
+                        <td id="connectColumn">
+                            @if($item->is_connect == 'Kết nối')
+                            <i class="bi bi-circle-fill text-info"></i>
+                            {{$item->is_connect}}
+                            @else
+                            <i class="bi bi-circle-fill text-danger"></i>
+                            {{$item->is_connect}}
+                            @endif
+                        </td>
                         <td class="displayServicesContainer">
                             @foreach($servicesOfEquipments as $servicesOfEquipmentsItem)
                             @if($item->equipments_id === $servicesOfEquipmentsItem->equipments_id )
                             @foreach($services_id as $services_id_item)
                             @if($services_id_item->services_id == $servicesOfEquipmentsItem->services_id)
-                            <span class="servicesDisplay">{{ $services_id_item->name }}</span>
+                            <span class="servicesDisplay">{{ $services_id_item->name }},</span>
                             @endif
                             @endforeach
                             @endif
                             @endforeach
                         </td>
-                        <td>Chi tiết</td>
+                        <td><a href="{{ route('equipments.detail',$item->equipments_id) }}">Chi tiết</a></td>
                         <td><a href="{{ route('equipments.edit',$item->equipments_id) }}">Cập nhật</a></td>
                     </tr>
                     @endforeach
@@ -103,6 +119,7 @@
                     @endif
                 </tbody>
             </table>
+            <div class="row" id="paginator">{{ $equipments->links() }}</div>
         </div>
         <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('equipments.add') }}" class="btn customize-add-button"><i class="bi bi-plus-square-fill"></i><br> Thêm thiết bị</a></div>
     </div>

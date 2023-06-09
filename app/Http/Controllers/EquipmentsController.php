@@ -12,16 +12,32 @@ use stdClass;
 
 class EquipmentsController extends Controller
 {
+    public function ShowEquipmentsDetail($id)
+    {
+        $equip = Equipments::findOrFail($id,['equipments_id', 'name', 'equipments_id_custom', 'equipments_categories_id', 'ip_address', 'username', 'password']);
+        $servicesOfEquipments = ServicesOfEquipments::all();
+        $services_id = Services::all('services_id', 'name');
+        $equip_cate = EquipmentCategories::all();
+        // $queuings_detail = Queuing::findOrFail($id);
+        // $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
+        return view(
+            'equipments.detail_equipments',
+            compact(
+                // 'queuings_detail','services_cate',
+                'equip','equip_cate','servicesOfEquipments','services_id'
+            )
+        );
+    }
     public function ShowEquipments()
     {
-        $services_id = Services::all('services_id','name');
+        $services_id = Services::all('services_id', 'name');
         // foreach($services_id as $item) {
         //     if ($item->services_id == 1)
         //     echo $item->name;
         // }
-        $equipments = Equipments::all();
+        $equipments = Equipments::orderBy('equipments_id','desc')->paginate(5);
         $servicesOfEquipments = ServicesOfEquipments::all();
-        return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments','services_id'));
+        return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments', 'services_id'));
     }
     public function AddEquipments()
     {
@@ -96,7 +112,7 @@ class EquipmentsController extends Controller
             'is_connect' => 'Kết nối',
             'is_active' => 'Đang hoạt động',
         ]);
-        ServicesOfEquipments::where('equipments_id',$request->id)->delete();
+        ServicesOfEquipments::where('equipments_id', $request->id)->delete();
         foreach ($request->services as $item) {
             ServicesOfEquipments::create([
                 'equipments_id' => $request->id,

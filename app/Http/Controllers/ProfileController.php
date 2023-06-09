@@ -20,15 +20,28 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function MyProfile($id) {
+        if ($id != Auth::user()->id) return redirect()->back();
+        $user = User::select('username', 'users.name as un', 'phone', 'email', 'password', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->where('users.id','=',$id)->get();
+        // print_r($users);
+        // echo $users;
+        // foreach($user as $item) echo $item;
+        return view('profile.edit', compact('user'));
+        // echo $user[0]; 
+    }
+
     public function ShowUsers()
     {
-        $users = User::orderBy('id', 'desc')->paginate(5);
+        $users = User::select('username', 'users.name as un', 'phone', 'email', 'status', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->orderBy('id', 'desc')->paginate(5);
+        // print_r($users);
+        // echo $users;
+        // foreach($users as $item) echo $item;
         return view('system.users.all_users', compact('users'));
     }
 
     public function AddUser()
     {
-        $roles = Role::all();
+        $roles = Role::all('role_id', 'name');
         return view('system.users.add_user', compact('roles'));
     }
 
@@ -58,13 +71,15 @@ class ProfileController extends Controller
         return redirect()->route('system.user');
     }
 
-    public function EditUser($id) {
+    public function EditUser($id)
+    {
         $user = User::find($id);
         $roles = Role::all();
-        return view('system.users.edit_user', compact('user','roles'));
+        return view('system.users.edit_user', compact('user', 'roles'));
     }
 
-    public function UpdateUser(Request $request){
+    public function UpdateUser(Request $request)
+    {
         $user = $request->id;
         User::findOrFail($user)->update([
             'name' => $request->name,
