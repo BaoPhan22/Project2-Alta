@@ -49,7 +49,7 @@
                         @foreach($roles as $item)
                         <tr>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->amount }}</td>
                             <td>{{ $item->description }}</td>
                             <td><a href="{{ route('system.role.edit',$item->role_id) }}">Cập nhật</a></td>
                         </tr>

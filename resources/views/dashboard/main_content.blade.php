@@ -10,8 +10,10 @@
         <div class="col"></div>
     </div>
     <div class="row">
-        
+
     </div>
 </div>
 
-<script>document.title='Dashboard'</script>
+<script>
+    document.title = 'Dashboard';
+</script>

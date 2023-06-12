@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\QueuingController;
@@ -74,6 +75,11 @@ Route::controller(ServicesController::class)->group(function () {
     Route::get('/services/detail/{id}', 'DetailServices')->name('services.detail');
     Route::post('/services/update', 'UpdateServices')->name('services.update');
 
+});
+
+// Diaries Controller
+Route::controller(DiaryController::class)->group(function () {
+    Route::get('system/diary/all', 'ShowDiary')->name('diary.all');
 });
 
 // Queuing Controller

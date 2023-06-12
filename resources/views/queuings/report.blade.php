@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-
+   
     <div class="col-10">
         <div class="row">
             <div class="col mt-3 ps-3">
@@ -96,7 +96,8 @@
     </div>
 
     <script>
-        document.title = 'Danh sách cấp số'
+        document.title = 'Danh sách cấp số';
+        console.log(Data.parse('17:38 06/06/2023'));
     </script>
-
+    
 @endsection

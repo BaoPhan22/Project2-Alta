@@ -40,6 +40,7 @@
             <form class="mt-3" method="post" action="{{ route('system.role.update') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $role_id->role_id }}">
+                <input type="hidden" name="usernameAuth" value="{{ Auth::user()->username }}">
                 <div class="card ms-3 ps-0 mb-3">
                     <div class="row text-primary fw-bold fs-5 mt-3 ms-3">Thông tin vai trò</div>
                     <div class="card-body row pb-0">
