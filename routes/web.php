@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiaryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\QueuingController;
@@ -24,9 +25,12 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard Controller
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'Show'])->middleware(['auth', 'verified'])->name('dashboard');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -50,7 +54,7 @@ Route::controller(RoleController::class)->group(function () {
     Route::get('/system/role', 'ShowRole')->name('system.role');
     Route::get('/system/role/add', 'AddRole')->name('system.role.add');
     Route::get('/system/role/edit/{id}', 'EditRole')->name('system.role.edit');
-    
+
     Route::post('/system/role/store', 'StoreRole')->name('system.role.store');
     Route::post('/system/role/update', 'UpdateRole')->name('system.role.update');
 });
@@ -63,7 +67,6 @@ Route::controller(EquipmentsController::class)->group(function () {
     Route::get('/equipments/edit/{id}', 'EditEquipments')->name('equipments.edit');
     Route::post('/equipments/update', 'UpdateEquipments')->name('equipments.update');
     Route::get('/equipments/detail/{id}', 'ShowEquipmentsDetail')->name('equipments.detail');
-
 });
 
 // Services Controller
@@ -74,7 +77,6 @@ Route::controller(ServicesController::class)->group(function () {
     Route::get('/services/edit/{id}', 'EditServices')->name('services.edit');
     Route::get('/services/detail/{id}', 'DetailServices')->name('services.detail');
     Route::post('/services/update', 'UpdateServices')->name('services.update');
-
 });
 
 // Diaries Controller
@@ -92,4 +94,4 @@ Route::controller(QueuingController::class)->group(function () {
     Route::get('/queuings/detail/{id}', 'ShowQueuingsDetail')->name('queuings.detail');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
