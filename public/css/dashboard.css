@@ -148,6 +148,16 @@ a:hover {
     color: #ff9138 !important;
 }
 
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+    top: 57%;
+    right: 3%;
+}
+
 body {
     max-width: 1920px;
     width: 100%;

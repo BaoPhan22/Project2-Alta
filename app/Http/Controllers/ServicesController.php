@@ -13,13 +13,12 @@ class ServicesController extends Controller
 {
     public function ShowServices()
     {
-        $services = Services::all();
+        $services = Services::select('services_id','name','description','status','services_id_custom')->get();
         return view('services.all_services', compact('services'));
     }
     public function AddServices()
     {
-        $services_cate = Services::all();
-        return view('services.add_services', compact('services_cate'));
+        return view('services.add_services');
     }
     public function StoreServices(Request $request)
     {
@@ -31,9 +30,7 @@ class ServicesController extends Controller
         if ($request->autoIncreasing) {
             $from = $request->from;
             $to = $request->to;
-            if ($from > $to) return redirect()->back();
-            if ($from < 0) return redirect()->back();
-            if ($to > 9999) return redirect()->back();
+            if ($from > $to || $from < 0 || $to > 9999) return redirect()->back();
             $reset_by_day = $request->resetByDay;
 
             // 0: prefix
@@ -80,9 +77,8 @@ class ServicesController extends Controller
         if ($request->autoIncreasing) {
             $from = $request->from;
             $to = $request->to;
-            if ($from > $to) return redirect()->back();
-            if ($from < 0) return redirect()->back();
-            if ($to > 9999) return redirect()->back();
+            if ($from > $to || $from < 0 || $to > 9999) return redirect()->back();
+
             $reset_by_day = $request->resetByDay;
 
             // 0: prefix

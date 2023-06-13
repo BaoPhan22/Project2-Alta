@@ -21,7 +21,7 @@
                 </div>
             </div>
         </a>
-        <div class="col dashboard-card-container">
+        <a href="{{ route('queuings.all','used') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -35,8 +35,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col dashboard-card-container">
+        </a>
+        <a href="{{ route('queuings.all','waiting') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -50,8 +50,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col dashboard-card-container">
+        </a>
+        <a href="{{ route('queuings.all','canceled') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="row dashboard-row">
         <div class="card dashboard-card">

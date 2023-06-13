@@ -87,8 +87,8 @@ Route::controller(DiaryController::class)->group(function () {
 // Queuing Controller
 Route::controller(QueuingController::class)->group(function () {
     Route::get('/report/{sd?}/{ed?}', 'ReportQueuings')->name('report');
-    Route::post('/report', 'ReportByDate')->name('reportByDate');
-    Route::get('/queuings/all', 'ShowQueuings')->name('queuings.all');
+    Route::get('/export', 'Export')->name('export');
+    Route::get('/queuings/all/{state?}', 'ShowQueuings')->name('queuings.all');
     Route::get('/queuings/add', 'AddQueuings')->name('queuings.add');
     Route::post('/queuings/add', 'StoreQueuings')->name('queuings.store');
     Route::get('/queuings/detail/{id}', 'ShowQueuingsDetail')->name('queuings.detail');

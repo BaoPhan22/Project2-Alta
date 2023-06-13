@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-   
+
     <div class="col-10">
         <div class="row">
             <div class="col mt-3 ps-3">
@@ -22,12 +22,15 @@
 
 
         <div class="row">
-            <p class="ms-1">Chọn thời gian</p>
-            <form action="{{ route('reportByDate') }}" method="post">
-                <input type="date" name="sd" id="">
-                <input type="date" name="ed" id="">
-                <button type="submit">Tim</button>
-            </form>
+            <p class="row ms-1">Chọn thời gian</p>
+            <div class="row ps-3">
+                <div class="col-3">
+                    <input type="date" name="sd" id="sd" class="form-control col" value="{{ $sdate }}">
+                </div>
+                <div class="col-3">
+                    <input type="date" name="ed" id="ed" class="form-control col" value="{{ $edate }}">
+                </div>
+            </div>
         </div>
 
         <div class="row my-3">
@@ -90,14 +93,13 @@
                     <div class="row" id="paginator"> {{ $queuings->links() }} </div>
                 @endif
             </div>
-            <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('queuings.add') }}" class="btn customize-add-button"><i
+            <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('export') }}" class="btn customize-add-button"><i
                         class="bi bi-file-earmark-arrow-down-fill"></i><br>Tải về</a></div>
         </div>
     </div>
 
     <script>
         document.title = 'Danh sách cấp số';
-        console.log(Data.parse('17:38 06/06/2023'));
     </script>
-    
+    <script src="{{asset('js/changeDate.js')}}"></script>
 @endsection

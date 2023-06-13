@@ -7,14 +7,20 @@ use App\Models\Queuing;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Mockery\Undefined;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class QueuingController extends Controller
 {
-    public function ReportByDate(Request $request) {
-        echo $request->sd;
-        echo $request->ed;
+    public function Export()
+    {
+        $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->get();
+        // print_r($queuings);
+        // foreach ($queuings as $item) echo $item;
+        $pdf = Pdf::loadView('queuings.export', ['queuings' => $queuings]);
+        return $pdf->download('report.pdf');
     }
-    public function ReportQueuings($sd = null, $ed = null)
+
+    public function ReportQueuings($sdate = null, $edate = null)
     {
         function convertDateToArray($date)
         {
@@ -22,25 +28,22 @@ class QueuingController extends Controller
             return explode('/', $date);
         }
 
-        // [$sd, $sm, $sy] = convertDateToArray('17:38 06/06/2023');
-        // [$ed, $em, $ey] = convertDateToArray('17:38 06/06/2023');
-
-
-
         // if sd not null
-        if (isset($sd, $sm, $sy) || isset($ed, $em, $ey)) {
+        if (isset($sdate)) {
+            [$sy, $sm, $sd] = explode('-', $sdate);
             $sorted_by_date = [];
             $queuings = Queuing::select('queuing_id', 'start_date')->get();
             // if ed is not null
-            if (isset($ed)) {
+            if (isset($edate) && $edate !== 'null') {
+                [$ey, $em, $ed] = explode('-', $edate);
                 foreach ($queuings as $item) {
-                    if (convertDateToArray($item->start_date)[0] >= $sd && convertDateToArray($item->start_date)[0] <= $ed)
+                    if ((convertDateToArray($item->start_date)[0] >= $sd  && convertDateToArray($item->start_date)[1] >= $sm) && (convertDateToArray($item->start_date)[0] <= $ed && convertDateToArray($item->start_date)[1] <= $em))
                         array_push($sorted_by_date, Queuing::findOrFail($item->queuing_id));
                 }
                 // if ed is null
             } else {
                 foreach ($queuings as $item) {
-                    if (convertDateToArray($item->start_date)[0] >= $sd)
+                    if ((convertDateToArray($item->start_date)[0] >= $sd  && convertDateToArray($item->start_date)[1] >= $sm))
                         array_push($sorted_by_date, Queuing::findOrFail($item->queuing_id));
                 }
             }
@@ -54,11 +57,24 @@ class QueuingController extends Controller
 
         $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
         $equip_cate = Equipments::all('equipments_id', 'name');
-        return view('queuings.report', compact('queuings', 'services_cate', 'equip_cate', 'paginate'));
+        return view('queuings.report', compact('queuings', 'services_cate', 'equip_cate', 'paginate','sdate','edate'));
     }
-    public function ShowQueuings()
+    public function ShowQueuings($state = null)
     {
-        $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->orderBy('queuing_id', 'asc')->paginate(11);
+        function getSql($ope, $state)
+        {
+            return Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->where('queuings.status', $ope, $state)->orderBy('queuing_id', 'asc')->paginate(11);
+        }
+
+        if ($state == null) {
+            $queuings = getSql('!=', '');
+        } else if ($state == 'used') {
+            $queuings = getSql('=', 'Đã sử dụng');
+        } else if ($state == 'waiting') {
+            $queuings = getSql('=', 'Đang chờ');
+        } else {
+            $queuings = getSql('=', 'Đã hủy');
+        }
         return view('queuings.all_queuings', compact(
             'queuings'
         ));

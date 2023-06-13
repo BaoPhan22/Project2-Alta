@@ -40,15 +40,24 @@ class ProfileController extends Controller
 
     public function StoreUser(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'phone' => 'required',
-        //     'email' => 'required',
-        //     'role_id' => 'required',
-        //     'username' => 'required',
-        //     'password' => 'required',
-        //     'status' => 'required',
-        // ]);
+        $checkUsername = User::select('username')->where('username', $request->username)->get();
+        if (isset($checkUsername) && count($checkUsername) >= 1) {
+            return redirect()->back()->with('message','Tên đăng nhập đã tồn tại');
+        }
+        $checkEmail = User::select('email')->where('email', $request->email)->get();
+        if (isset($checkEmail) && count($checkEmail) >= 1) {
+            return redirect()->back()->with('message','Email đã tồn tại');
+        }
+
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'role_id' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'status' => 'required',
+        ]);
 
         $request = User::create([
             'name' => $request->name,
@@ -60,13 +69,13 @@ class ProfileController extends Controller
             'status' => $request->status,
         ]);
         // User::create($request->post());
-        event(new Registered($request));
+        // event(new Registered($request));
         return redirect()->route('system.user');
     }
 
     public function EditUser(int $id)
     {
-        $user = User::select('id','users.name', 'username', 'email', 'password', 'phone', 'status')->where('id', '=', $id)->get();
+        $user = User::select('id', 'users.name', 'username', 'email', 'password', 'phone', 'status')->where('id', '=', $id)->get();
         $roles = Role::all('role_id', 'name');
         return view('system.users.edit_user', compact('user', 'roles'));
     }
