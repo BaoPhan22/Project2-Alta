@@ -71,37 +71,68 @@
         <div class="card dashboard-card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-9">
-                        <p>Bảng thống kê theo ngày</p>
-                        <p>Tháng 06/2023</p>
-                        <canvas id="myChart"></canvas>
-
+                    <div class="col-7">
+                        <p class="fw-bold">Bảng thống kê theo Ngày</p>
+                        <p style="font-size: 14px; color: #A9A9B0; font-weight: 400">Tháng 06/2023</p>
                     </div>
-                    <div class="col-3">
-                        Xem thêm
+                    <div class="col-5 row">
+                        <p class="col mb-0">Xem theo</p>
+                        <ul class="nav nav-tabs col">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle pt-0" data-bs-toggle="dropdown" href="#"
+                                    role="button" aria-expanded="false"
+                                    ">Ngày</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ngày</a></li>
+                                    <li><a class="dropdown-item" href="#">Tuần</a></li>
+                                    <li><a class="dropdown-item" href="#">Tháng</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
+                </div>
+                <div class="row">
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
+    <input type="hidden" value="{{ $dataToChart }}" id="dataToChart">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    var dataToChart = document.getElementById('dataToChart');
+    let a = JSON.parse(dataToChart.value);
+    // let a = dataToChart.value
+    let labels = [];
+    let data = [];
+
+    for (var key in a) {
+        labels.push(parseInt(key));
+        var value = a[key];
+        data.push(value);
+    }
+    // labels = labels.sort((a, b) => a - b);
+
+
+
+
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
         type: 'line',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'Số phiếu theo ngày',
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                    borderColor: 'rgb(54, 162, 235)',
-                    tension: 0.1,
-                    pointRadius: 3,
-                    fill: false
-                }]
-            },
-            options: {}
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Số phiếu theo ngày',
+                data: data,
+                borderColor: 'rgb(54, 162, 235)',
+                tension: 0.1,
+                pointRadius: 3,
+                fill: false
+            }]
+        },
+        options: {}
     });
 </script>
 <script>

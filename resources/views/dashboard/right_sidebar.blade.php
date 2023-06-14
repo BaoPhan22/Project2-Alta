@@ -4,7 +4,7 @@
         <p class="fw-bold" style="color: #ff7506; font-size: 24px; line-height: 36px;">Tổng quan</p>
     </div>
     <div class="row card mb-3 dashboard-card">
-        <div class="card-body row">
+        <a href="{{route('equipments.all')}}" class="card-body row">
             <div class="col-3 percentage-format">{{ ($equipments[0]->active / $equipments[0]->total) * 100 }}</div>
             <div class="col-3 fw-bold fs-4">{{ $equipments[0]->total }} <br><span class="device-color"><img
                         src="{{ asset('image_layout/monitor.svg') }}" alt="">
@@ -25,10 +25,10 @@
                 </ul>
 
             </div>
-        </div>
+        </a>
     </div>
     <div class="row card mb-3 dashboard-card">
-        <div class="card-body row">
+        <a href="{{route('services.all')}}" class="card-body row">
             <div class="col-3 percentage-format">{{ ($services[0]->active / $services[0]->total) * 100 }}</div>
             <div class="col-3 fw-bold fs-4"> {{ $services[0]->total }} <br><span class="service-color"><img
                         src="{{ asset('image_layout/Frame 332.svg') }}" alt="">
@@ -49,10 +49,10 @@
                 </ul>
 
             </div>
-        </div>
+        </a>
     </div>
     <div class="row card mb-3 dashboard-card">
-        <div class="card-body row">
+        <a href="{{route('queuings.all')}}" class="card-body row">
             <div class="col-3 percentage-format">{{ ($queuings[0]->waiting / $queuings[0]->total) * 100 }}</div>
             <div class="col-3 fw-bold fs-4"> {{ $queuings[0]->total }} <br><span class="queuing-color"><img
                         src="{{ asset('image_layout/fi_layers.svg') }}" alt="">
@@ -76,7 +76,7 @@
                 </ul>
 
             </div>
-        </div>
+        </a>
     </div>
 </div>
 <script src="{{ asset('js/percentage-format.js') }}"></script>

@@ -27,8 +27,10 @@ class EquipmentsController extends Controller
             )
         );
     }
-    public function ShowEquipments()
+    public function ShowEquipments($isactive = null, $isconnect = null)
     {
+        if (isset($isactive)) echo $isactive;
+        if (isset($isconnect)) echo $isconnect;
         $services_id = Services::all('services_id', 'name');
         // foreach($services_id as $item) {
         //     if ($item->services_id == 1)
@@ -36,7 +38,7 @@ class EquipmentsController extends Controller
         // }
         $equipments = Equipments::orderBy('equipments_id','desc')->paginate(5);
         $servicesOfEquipments = ServicesOfEquipments::all();
-        return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments', 'services_id'));
+        // return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments', 'services_id'));
     }
     public function AddEquipments()
     {

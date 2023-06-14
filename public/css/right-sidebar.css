@@ -1,0 +1,20 @@
+.card-body {
+    text-decoration: none;
+    color: black;
+}
+.card-body:hover {
+    text-decoration: none;
+    color: black;
+}
+.device-color {
+    color: #ff7506;
+}
+
+.service-color {
+    color: #4277ff;
+}
+
+.queuing-color {
+    color: #35c75a;
+}
+
