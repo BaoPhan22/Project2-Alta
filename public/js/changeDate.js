@@ -1,20 +1,25 @@
 const sdate = document.querySelector("#sd");
 const edate = document.querySelector("#ed");
 
-function setUrl(sd = null, yd = null) {
-    if(yd==null) return (url = `report/${sd}`);
-    return (url = `report/${sd}/${yd}`);
+console.log(sdate.value);
+
+let startDateToGo = "";
+let endDateToGo = "";
+
+const goToReport = () => {
+    if (startDateToGo != "" && endDateToGo != "") {
+        window.location.href = `http://127.0.0.1:8000/report/${startDateToGo}/${endDateToGo}`;
+    }
 }
 
-let urlToGo = '';
-
 sdate.addEventListener("change", (e) => {
-    urlToGo = setUrl(e.target.value);
-    // window.location.href = urlToGo;
+    startDateToGo = e.target.value;
+
+    goToReport();
 });
 
-
 edate.addEventListener("change", (e) => {
-    urlToGo+=`/${e.target.value}`;
-    window.location.href = urlToGo;
+    endDateToGo = e.target.value;
+
+    goToReport();
 });

@@ -22,42 +22,37 @@ class QueuingController extends Controller
 
     public function ReportQueuings($sdate = null, $edate = null)
     {
+        if(isset($sdate) && !isset($edate)) return redirect()->back();
+        
         function convertDateToArray($date)
         {
             $date = substr($date, 6);
             return explode('/', $date);
         }
 
-        // if sd not null
-        if (isset($sdate)) {
+        if (isset($edate) && isset($sdate)) {
             [$sy, $sm, $sd] = explode('-', $sdate);
-            $sorted_by_date = [];
-            $queuings = Queuing::select('queuing_id', 'start_date')->get();
-            // if ed is not null
-            if (isset($edate) && $edate !== 'null') {
-                [$ey, $em, $ed] = explode('-', $edate);
-                foreach ($queuings as $item) {
-                    if ((convertDateToArray($item->start_date)[0] >= $sd  && convertDateToArray($item->start_date)[1] >= $sm) && (convertDateToArray($item->start_date)[0] <= $ed && convertDateToArray($item->start_date)[1] <= $em))
-                        array_push($sorted_by_date, Queuing::findOrFail($item->queuing_id));
-                }
-                // if ed is null
-            } else {
-                foreach ($queuings as $item) {
-                    if ((convertDateToArray($item->start_date)[0] >= $sd  && convertDateToArray($item->start_date)[1] >= $sm))
-                        array_push($sorted_by_date, Queuing::findOrFail($item->queuing_id));
-                }
+            [$ey, $em, $ed] = explode('-', $edate);
+            $queuingsOriginal = Queuing::select('queuing_id', 'start_date')->get();
+            $a = [];
+            foreach ($queuingsOriginal as $item) {
+                if ((convertDateToArray($item->start_date)[0] >= $sd && convertDateToArray($item->start_date)[0] <= 31 && convertDateToArray($item->start_date)[1] == $sm) && (convertDateToArray($item->start_date)[0] <= $ed && convertDateToArray($item->start_date)[0] > 0 && convertDateToArray($item->start_date)[1] <= $em))
+                    array_push($a, $item->queuing_id);
             }
-            $queuings = $sorted_by_date;
+            $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->whereIn('queuing_id', $a)->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->get();
             $paginate = false;
-            // if sd is null
         } else {
             $queuings = Queuing::select('services.rule as rule', 'services.services_id_custom', 'order', 'queuing_id', 'start_date', 'end_date', 'queuings.status', 'services.name as sn', 'equipments.name as en')->leftJoin('services', 'services.services_id', '=', 'queuings.services_id')->leftJoin('equipments', 'equipments.equipments_id', '=', 'queuings.equipments_id')->orderBy('queuing_id', 'asc')->paginate(11);
             $paginate = true;
         }
 
-        $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
-        $equip_cate = Equipments::all('equipments_id', 'name');
-        return view('queuings.report', compact('queuings', 'services_cate', 'equip_cate', 'paginate','sdate','edate'));
+        return view('queuings.report', compact(
+            'queuings'
+            ,
+            'paginate',
+            'sdate',
+            'edate'
+        ));
     }
     public function ShowQueuings($state = null)
     {

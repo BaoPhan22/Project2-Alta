@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $queuings = DB::select("SELECT COUNT(queuing_id) as total, SUM(status='Đang chờ') as waiting, SUM(status='Đã sử dụng') as used,SUM(status='Đã hủy') as canceled FROM queuings;;
 ");
 
-        return view('dashboard', compact('services', 'equipments','queuings'));
+        return view('dashboard', compact('services', 'equipments', 'queuings'));
 
         // var_dump($equip);
 

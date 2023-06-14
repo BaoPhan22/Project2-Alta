@@ -21,7 +21,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('queuings.all','used') }}" class="col dashboard-card-container">
+        <a href="{{ route('queuings.all', 'used') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('queuings.all','waiting') }}" class="col dashboard-card-container">
+        <a href="{{ route('queuings.all', 'waiting') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('queuings.all','canceled') }}" class="col dashboard-card-container">
+        <a href="{{ route('queuings.all', 'canceled') }}" class="col dashboard-card-container">
             <div class="card dashboard-card">
                 <div class="card-body">
                     <div class="row mb-3">
@@ -73,7 +73,9 @@
                 <div class="row">
                     <div class="col-9">
                         <p>Bảng thống kê theo ngày</p>
-                        <p>Tháng 11/2021</p>
+                        <p>Tháng 06/2023</p>
+                        <canvas id="myChart"></canvas>
+
                     </div>
                     <div class="col-3">
                         Xem thêm
@@ -83,7 +85,25 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'Số phiếu theo ngày',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                    borderColor: 'rgb(54, 162, 235)',
+                    tension: 0.1,
+                    pointRadius: 3,
+                    fill: false
+                }]
+            },
+            options: {}
+    });
+</script>
 <script>
     document.title = 'Dashboard';
 </script>
