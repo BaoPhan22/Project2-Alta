@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipments;
+use Illuminate\Support\Facades\DB;
 use App\Models\Services;
 use App\Models\ServicesOfEquipments;
 use App\Models\EquipmentCategories;
@@ -14,31 +15,37 @@ class EquipmentsController extends Controller
 {
     public function ShowEquipmentsDetail($id)
     {
-        $equip = Equipments::findOrFail($id,['equipments_id', 'name', 'equipments_id_custom', 'equipments_categories_id', 'ip_address', 'username', 'password']);
-        $servicesOfEquipments = ServicesOfEquipments::all();
-        $services_id = Services::all('services_id', 'name');
-        $equip_cate = EquipmentCategories::all();
-        // $queuings_detail = Queuing::findOrFail($id);
-        // $services_cate = Services::all('services_id', 'name', 'rule', 'services_id_custom');
-        return view(
-            'equipments.detail_equipments',
-            compact(
-                'equip','equip_cate','servicesOfEquipments','services_id'
-            )
-        );
+        $equipments = DB::select("SELECT `equipments_id_custom`, `equipments`.`name`, `username`, `password`,`ip_address`, `equipments_id`,`equipment_categories`.`name` as `ecname` \n"
+
+            . "FROM equipments,equipment_categories WHERE equipments.equipments_id = 20 and equipment_categories.equipments_categories_id = equipments.equipments_categories_id");
+
+        // echo $equipments;
+
+        $sql2 = "SELECT `equipments`.`equipments_id`,`services`.`name`\n"
+
+            . "FROM `equipments`,`services`,`services_of_equipments` WHERE 1 AND services_of_equipments.equipments_id = equipments.equipments_id AND services_of_equipments.services_id = services.services_id;";
+        $services_of_equipments = DB::select($sql2);
+
+
+        return view('equipments.detail_equipments', compact('equipments', 'services_of_equipments'));
     }
-    public function ShowEquipments($isactive = null, $isconnect = null)
+    public function ShowEquipments(Request $request)
     {
-        if (isset($isactive)) echo $isactive;
-        if (isset($isconnect)) echo $isconnect;
-        $services_id = Services::all('services_id', 'name');
-        // foreach($services_id as $item) {
-        //     if ($item->services_id == 1)
-        //     echo $item->name;
-        // }
-        $equipments = Equipments::orderBy('equipments_id','desc')->paginate(5);
-        $servicesOfEquipments = ServicesOfEquipments::all();
-        // return view('equipments.all_equipments', compact('equipments', 'servicesOfEquipments', 'services_id'));
+        if ($request->isActive != null || $request->isConnect != null || $request->search != null) {
+            $equipments = Equipments::select('equipments_id_custom', 'name', 'ip_address', 'is_connect', 'is_active', 'equipments_id')->when($request->isActive != null, function ($q) use ($request) {
+                return $q->where('is_active', $request->isActive);
+            })->when($request->isConnect != null, function ($q) use ($request) {
+                return $q->where('is_connect',  $request->isConnect);
+            })->when($request->search != null, function ($q) use ($request) {
+                return $q->where('ip_address',  $request->search)->orWhere('equipments_id_custom',$request->search)->orWhere('name',$request->search);
+            })->orderBy('equipments_id', 'desc')->paginate(5);
+        } else {
+            $equipments = Equipments::select('equipments_id_custom', 'name', 'ip_address', 'is_connect', 'is_active', 'equipments_id')->orderBy('equipments_id', 'desc')->paginate(5);
+        }
+        $sql2 = "SELECT `equipments`.`equipments_id`,`services`.`name`\n"
+            . "FROM `equipments`,`services`,`services_of_equipments` WHERE 1 AND services_of_equipments.equipments_id = equipments.equipments_id AND services_of_equipments.services_id = services.services_id;";
+        $services_of_equipments = DB::select($sql2);
+        return view('equipments.all_equipments', compact('equipments', 'services_of_equipments'));
     }
     public function AddEquipments()
     {

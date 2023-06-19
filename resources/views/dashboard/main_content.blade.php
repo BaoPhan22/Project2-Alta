@@ -3,7 +3,7 @@
         <p class="text-primary fw-bold fs-5">Dashboard</p>
     </div>
     <div class="row">
-        <p class="text-primary fw-bold fs-4">Biểu đồ cấp số</p>
+        <p class="text-primary fw-bold fs-4 mt-4">Biểu đồ cấp số</p>
     </div>
     <div class="row dashboard-row mb-3">
         <a href="{{ route('queuings.all') }}" class="col dashboard-card-container">

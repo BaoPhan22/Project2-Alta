@@ -24,43 +24,70 @@
             <p class="fw-bold text-primary ms-1 fs-4">Quản lý cấp số</p>
         </div>
 
-        <div class="row">
+        <form method="GET" class="row col-11">
             <div class="col ps-4">
                 <div class="row">
-                    <p class="keyword-form mb-0">Trạng thái hoạt động</p>
+                    <p class="keyword-form mb-0 ps-1">Tên dịch vụ</p>
                 </div>
                 <div class="row">
-                    <select name="role_id" class="form-select ms-2">
-                        <option value="Tất cả"> Tất cả </option>
-                        <option value="Hoạt động"> Hoạt động </option>
-                        <option value="Ngưng hoạt động"> Ngưng hoạt động </option>
+                    <select name="services_name" class="form-select ms-1">
+                        <option value=""> Tất cả </option>
+                        @foreach ($services_to_filter as $item)
+                        <option value="{{ $item->services_id }}"> {{ $item->name }} </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
-            <div class="col pe-5 ms-3">
+            <div class="col ps-4">
                 <div class="row">
-                    <p class="keyword-form mb-0">Trạng thái kết nối</p>
+                    <p class="keyword-form mb-0 ps-2">Tình Trạng</p>
                 </div>
                 <div class="row">
-                    <select name="role_id" class="form-select ms-2">
-                        <option value="Tất cả"> Tất cả </option>
-                        <option value="Kết nối"> Kết nối </option>
-                        <option value="Mất kết nối"> Mất kết nối </option>
+                    <select name="status" class="form-select ms-2">
+                        <option value=""> Tất cả </option>
+                        <option value="Đang chờ"> Đang chờ </option>
+                        <option value="Đã sử dụng"> Đã sử dụng </option>
+                        <option value="Đã bỏ qua"> Đã bỏ qua </option>
                     </select>
                 </div>
             </div>
-            <div class="col px-5">
+            <div class="col ps-4">
+                <div class="row">
+                    <p class="keyword-form mb-0 ps-2">Nguồn cấp</p>
+                </div>
+                <div class="row">
+                    <select name="from_equipments" class="form-select ms-2">
+                        <option value=""> Tất cả </option>
+                        @foreach ($equip_to_filter as $item)
+                        <option value="{{ $item->equipments_id }}"> {{ $item->name }} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row col-4 ms-2 me-0 px-0">
+                <div class="row">
+                    <p class="keyword-form mb-0">Chọn thời gian</p>
+                </div>
+                <div class="row px-0 mx-0">
+                    <div class="col-6 pe-2">
+                        <input type="date" name="sd" id="sd" class="form-control w-100">
+                    </div>
+                    <div class="col-6 ps-2">
+                        <input type="date" name="ed" id="ed" class="form-control w-100">
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0">
                 <div class="row">
                     <p class="keyword-form mb-0">Từ khóa</p>
                 </div>
                 <div class="row">
-                    <form class="d-flex" style='position: relative'>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="search-button"><i class="bi bi-search"></i></button>
-                    </form>
+                    <div class="d-flex pe-0" style='position: relative'>
+                        @include('components.searchbar')
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <div class="row my-3">
             <div class="col-11">

@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 
 class ProfileController extends Controller
@@ -19,6 +20,17 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function UpdateAvatar(Request $request) {
+        $user = new User();
+        if ($request->hasFile('picture')) {
+            $completeName = $request->file('picture')->getClientOriginalName();
+            $fileNameOnly = pathinfo($completeName,PATHINFO_FILENAME);
+            $extension = $request->file('picture')->getClientOriginalExtension();
+            $compPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extension;
+            $path = $request->file('picture')->storeAs('upload/avatars',$compPic);
+            $user->picture = 'users/'.$compPic;
+        }
+    }
     public function MyProfile(int $id)
     {
         if ($id != Auth::user()->id) return redirect()->back();
@@ -26,9 +38,17 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user'));
     }
 
-    public function ShowUsers()
+    public function ShowUsers(Request $request)
     {
-        $users = User::select('username', 'users.name as un', 'phone', 'email', 'status', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->orderBy('id', 'desc')->paginate(5);
+        if ($request->search != null || $request->isActive != null) {
+            $users = User::select('username', 'users.name as un', 'phone', 'email', 'status', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->when($request->isActive != null, function ($q) use ($request) {
+                return $q->where('status', $request->isActive);
+            })->when($request->search != null, function ($q) use ($request) {
+                return $q->where('username','like','%'.$request->search.'%')->orWhere('users.name','like','%'.$request->search."%")->orWhere('phone','like','%'.$request->search."%")->orWhere('email','like','%'.$request->search."%")->orWhere('roles.name','like','%'.$request->search."%")->orWhere('status','like','%'.$request->search."%");
+            })->orderBy('id', 'desc')->paginate(5);
+        } else {
+            $users = User::select('username', 'users.name as un', 'phone', 'email', 'status', 'id', 'roles.name as rn')->leftJoin('roles', 'roles.role_id', '=', 'users.role_id')->orderBy('id', 'desc')->paginate(5);
+        }
         return view('system.users.all_users', compact('users'));
     }
 
@@ -42,11 +62,11 @@ class ProfileController extends Controller
     {
         $checkUsername = User::select('username')->where('username', $request->username)->get();
         if (isset($checkUsername) && count($checkUsername) >= 1) {
-            return redirect()->back()->with('message','Tên đăng nhập đã tồn tại');
+            return redirect()->back()->with('message', 'Tên đăng nhập đã tồn tại');
         }
         $checkEmail = User::select('email')->where('email', $request->email)->get();
         if (isset($checkEmail) && count($checkEmail) >= 1) {
-            return redirect()->back()->with('message','Email đã tồn tại');
+            return redirect()->back()->with('message', 'Email đã tồn tại');
         }
 
         $request->validate([

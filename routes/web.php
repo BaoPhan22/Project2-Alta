@@ -44,6 +44,7 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('/system/user/add', 'AddUser')->name('system.user.add');
     Route::get('/system/user/edit/{id}', 'EditUser')->name('system.user.edit');
     Route::post('/system/user/store', 'StoreUser')->name('system.user.store');
+    Route::post('/system/user/updateavatar', 'UpdateAvatar')->name('profile.update.avatar');
     Route::post('/system/user/update', 'UpdateUser')->name('system.user.update');
     Route::get('/myprofile/{id}', 'MyProfile')->name('myprofile');
 });

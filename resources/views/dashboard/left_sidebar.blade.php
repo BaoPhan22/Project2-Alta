@@ -35,12 +35,17 @@
                     Báo cáo
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark rounded-0 px-0">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link link-dark rounded-0 px-0 dropdown-toggle" data-bs-toggle="dropdown" role="button">
                     <i class="bi bi-gear ms-3"></i>&nbsp;
                     Cài đặt hệ thống &nbsp; &nbsp; &nbsp;
                     <i class="bi bi-three-dots-vertical"></i>
                 </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('system.role') }}">Cài đặt vai trò</a></li>
+                    <li><a class="dropdown-item" href="{{ route('system.user') }}">Cài đặt người dùng</a></li>
+                    <li><a class="dropdown-item" href="{{ route('diary.all') }}">Nhật ký hoạt động</a></li>
+                </ul>
             </li>
         </ul>
     </div>

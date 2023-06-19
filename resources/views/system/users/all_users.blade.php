@@ -20,31 +20,27 @@
         <div class="row my-3">
             <p class="fw-bold text-primary ms-1 fs-4">Danh sách tài khoản</p>
         </div>
-        <div class="row mb-3">
+        <form class="row mb-3 col-11" method="GET">
             <div class="col ps-3">
                 <div class="row">
                     <p class="keyword-form mb-0">Trạng thái</p>
                 </div>
-                <div class="row">
-                    <select name="role_id" class="form-select ms-2">
-                        <option value="Hoạt động"> Hoạt động </option>
-                        <option value="Ngưng hoạt động"> Ngưng hoạt động </option>
-                    </select>
+                <div class="row ps-1">
+                    @include('components.selectActive')
                 </div>
             </div>
             <div class="col"></div>
-            <div class="col">
+            <div class="col pe-0">
                 <div class="row">
                     <p class="keyword-form mb-0">Từ khóa</p>
                 </div>
                 <div class="row">
-                    <form class="d-flex" style='position: relative'>
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="search-button"><i class="bi bi-search"></i></button>
-                    </form>
+                    <div class="d-flex pe-0" style='position: relative' method="GET">
+                        @include('components.searchbar')
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="col-1"></div>
         <div class="row">
             <div class="col-11">

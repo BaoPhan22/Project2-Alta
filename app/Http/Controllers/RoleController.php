@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-    public function ShowRole()
+    public function ShowRole(Request $request)
     {
-        DB::statement("SET SQL_MODE=''");
-        $roles = DB::select("SELECT `roles`.`role_id`, `description`, `roles`.`name`, count('users.id') as amount FROM `roles` LEFT JOIN `users` ON `users`.`role_id` = `roles`.`role_id` WHERE `users`.`role_id` = `roles`.`role_id` GROUP BY `roles`.`role_id`");
+        if ($request->search != null) {
+            DB::statement("SET SQL_MODE=''");
+            $roles = DB::select("SELECT `roles`.`role_id`, `description`, `roles`.`name`, count('users.id') as amount FROM `roles` LEFT JOIN `users` ON `users`.`role_id` = `roles`.`role_id` WHERE `users`.`role_id` = `roles`.`role_id` AND `roles`.`name` like '%".$request->search."%' OR `roles`.`description` like '%".$request->search."%' GROUP BY `roles`.`role_id`");
+        } else {
+            DB::statement("SET SQL_MODE=''");
+            $roles = DB::select("SELECT `roles`.`role_id`, `description`, `roles`.`name`, count('users.id') as amount FROM `roles` LEFT JOIN `users` ON `users`.`role_id` = `roles`.`role_id` WHERE `users`.`role_id` = `roles`.`role_id` GROUP BY `roles`.`role_id`");
+        }
 
         return view('system.role.all_role', compact('roles'));
     }

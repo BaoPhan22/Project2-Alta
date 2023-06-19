@@ -22,13 +22,17 @@
 
 
         <div class="row">
-            <p class="row ms-1">Chọn thời gian</p>
+            <div class="row">
+                <p class="keyword-form mb-0 ps-3">Chọn thời gian</p>
+            </div>
             <div class="row ps-3">
                 <div class="col-3">
-                    <input type="date" name="sd" id="sd" class="form-control col" value="{{ $sdate }}">
+                    <input type="date" name="sd" id="sd" class="form-control col"
+                        value="{{ $sdate }}">
                 </div>
                 <div class="col-3">
-                    <input type="date" name="ed" id="ed" class="form-control col" value="{{ $edate }}">
+                    <input type="date" name="ed" id="ed" class="form-control col"
+                        value="{{ $edate }}">
                 </div>
             </div>
         </div>
@@ -93,13 +97,17 @@
                     <div class="row" id="paginator"> {{ $queuings->links() }} </div>
                 @endif
             </div>
-            <div class="col-1 pe-0 ps-3 fw-bold"><a href="{{ route('export') }}" class="btn customize-add-button"><i
-                        class="bi bi-file-earmark-arrow-down-fill"></i><br>Tải về</a></div>
+            <div class="col-1 d-flex flex-row-reverse fw-bold pe-0" style="height: 70px">
+                <a href="{{ route('export') }}" class="btn customize-add-button">
+                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                    <br>Tải về
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
         document.title = 'Danh sách cấp số';
     </script>
-    <script src="{{asset('js/changeDate.js')}}"></script>
+    <script src="{{ asset('js/changeDate.js') }}"></script>
 @endsection

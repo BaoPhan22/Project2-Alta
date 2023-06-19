@@ -11,9 +11,17 @@ use function PHPUnit\Framework\returnSelf;
 
 class ServicesController extends Controller
 {
-    public function ShowServices()
+    public function ShowServices(Request $request)
     {
-        $services = Services::select('services_id','name','description','status','services_id_custom')->get();
+        if ($request->isActive != null || $request->search != null) {
+            $services = Services::select('services_id','name','description','status','services_id_custom')->when($request->isActive != null, function ($q) use ($request) {
+                return $q->where('status', $request->isActive);
+            })->when($request->search != null, function ($q) use ($request) {
+                return $q->where('services_id_custom',  $request->search)->orWhere('name','like','%'.$request->search."%")->orWhere('description','like','%'.$request->search."%");
+            })->get();
+        } else {
+            $services = Services::select('services_id','name','description','status','services_id_custom')->get();
+        }
         return view('services.all_services', compact('services'));
     }
     public function AddServices()

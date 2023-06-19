@@ -25,10 +25,9 @@
                 <div class="row">
                     <p class="keyword-form mb-0">Từ khóa</p>
                 </div>
-                <div class="row">
-                    <form class="d-flex" style='position: relative'>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="search-button"><i class="bi bi-search"></i></button>
+                <div class="row col-11 mx-0 w-100 pe-2">
+                    <form class="d-flex ps-1 pe-0" style='position: relative' method="GET">
+                        @include('components.searchbar')
                     </form>
                 </div>
             </div>

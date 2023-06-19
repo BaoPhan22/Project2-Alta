@@ -20,39 +20,27 @@
             <p class="fw-bold text-primary ms-1 fs-4">Quản lý dịch vụ</p>
         </div>
 
-        <div class="row">
-            <div class="col ps-4">
+        <form method="GET" class="row col-11">
+            <div class="col-4 ps-4">
                 <div class="row">
-                    <p class="keyword-form mb-0">Trạng thái hoạt động</p>
+                    <p class="keyword-form mb-0 ps-1">Trạng thái hoạt động</p>
                 </div>
-                <div class="row">
-                    <select name="role_id" class="form-select ms-2">
-                        <option value="Tất cả"> Tất cả </option>
-                        <option value="Hoạt động"> Hoạt động </option>
-                        <option value="Ngưng hoạt động"> Ngưng hoạt động </option>
-                    </select>
+                <div class="row ps-1">
+                    @include('components.selectActive')
                 </div>
             </div>
-            <!-- <div class="col pe-5 ms-3">
-                <div class="row">
-                    <p class="keyword-form mb-0">Chọn thời gian</p>
-                </div>
-                <div class="row">
-                    
-                </div>
-            </div> -->
-            <div class="col px-5">
+            <div class="col-5"></div>
+            <div class="col-3 px-5 pe-0">
                 <div class="row">
                     <p class="keyword-form mb-0">Từ khóa</p>
                 </div>
                 <div class="row">
-                    <form class="d-flex" style='position: relative'>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="search-button"><i class="bi bi-search"></i></button>
-                    </form>
+                    <div class="d-flex pe-0" style='position: relative'>
+                        @include('components.searchbar')
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <div class="row my-3">
             <div class="col-11">

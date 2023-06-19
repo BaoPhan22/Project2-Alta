@@ -17,6 +17,8 @@ class DashboardController extends Controller
 
         $queuings = DB::select("SELECT COUNT(queuing_id) as total, SUM(status='Đang chờ') as waiting, SUM(status='Đã sử dụng') as used,SUM(status='Đã hủy') as canceled FROM queuings;;
 ");
+
+        // get data for line chart
         $sql = "SELECT ";
         for ($i = 1; $i <= 31; $i++) {
             if ($i < 10)
@@ -38,6 +40,6 @@ class DashboardController extends Controller
 
         $dataToChart = json_encode($dataToChart);
 
-        return view('dashboard', compact('services', 'equipments', 'queuings','dataToChart'));
+        return view('dashboard', compact('services', 'equipments', 'queuings', 'dataToChart'));
     }
 }

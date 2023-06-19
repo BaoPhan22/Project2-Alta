@@ -17,22 +17,30 @@
                 @include('components.profile')
             </div>
         </div>
-        <div class="row my-3">
+        <form class="row my-3 col-11" method="GET">
             <div class="col-8">
+                <p class="row ms-1 keyword-form mb-0">Chọn thời gian</p>
+                <div class="row ps-1">
+                    <div class="col-3">
+                        <input type="date" name="sd" id="sd" class="form-control col">
+                    </div>
+                    <div class="col-3">
+                        <input type="date" name="ed" id="ed" class="form-control col">
+                    </div>
+                </div>
             </div>
-            <div class="col-3 pe-0">
+            <div class="col-4 pe-0">
                 <div class="row">
                     <p class="keyword-form mb-0">Từ khóa</p>
                 </div>
                 <div class="row">
-                    <form class="d-flex" style='position: relative'>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <div class="d-flex pe-0" style='position: relative'>
+                        <input class="form-control me-0" type="search" placeholder="Search" aria-label="Search" name="search">
                         <button class="search-button"><i class="bi bi-search"></i></button>
-                    </form>
+                    </div>
                 </div>
             </div>
-            <div class="col-1"></div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-11">
                 <table class="table table-striped table-bordered custom-table ms-2">
@@ -61,6 +69,7 @@
     </div>
 
     <script>
-        document.title = 'Quản lý vai trò'
+        document.title = 'Nhật ký hoạt động'
     </script>
+    {{-- <script src="{{ asset('js/changeDate.js') }}"></script> --}}
 @endsection
